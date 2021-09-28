@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +22,11 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
         // \App\Models\Admin::factory(10)->create();
+        $this->call([
+            CategorySeeder::class,
+            SubCategorySeeder::class,
+            ColorSeeder::class,
+            SizeSeeder::class,
+        ]);
     }
 }
