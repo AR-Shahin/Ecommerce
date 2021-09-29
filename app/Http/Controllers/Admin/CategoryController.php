@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\File;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,22 +17,28 @@ class CategoryController extends Controller
 
     function fetchCategory()
     {
-        return Category::get();
+        return Category::latest()->get();
     }
 
     public function store(CategoryRequest $request)
     {
+        //    info($request->all());
         $category =  Category::create([
             'name' => $request->name,
-            'slug' => $request->name
+            'slug' => $request->name,
+            'image' => File::upload($request->file('image'), 'category')
         ]);
-        info($category);
+        if ($category) {
+            return true;
+        }
     }
 
     public function destroy(Category $category)
     {
+        $img = $category->image;
         $category->delete();
-        return 1;
+        File::deleteFile($img);
+        return true;
     }
 
     public function show(Category $category)

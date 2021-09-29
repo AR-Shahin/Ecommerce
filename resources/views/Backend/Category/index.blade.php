@@ -32,8 +32,13 @@
                 <form id="addCategoryForm">
                     <div class="form-group">
                         <label for="">Category Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter Category Name">
+                        <input type="text" class="form-control" id="name" placeholder="Enter Category Name" name="name">
                         <span class="text-danger" id="catError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Category Image</label>
+                        <input name="image" type="file" class="form-control" id="image">
+                        <span class="text-danger" id="imageError"></span>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-success btn-block">Add New Category</button>
@@ -43,21 +48,17 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="viewRow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">View Category</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+        <div class="modal-body" id="viewData">
+
         </div>
       </div>
     </div>
@@ -96,7 +97,7 @@
 @push('script')
 <x-Utility.data-table-js/>
 <script>
-
+ //setSuccessMessage();
     const getAllCategory = ()=> {
         axios.get("{{ route('admin.fetch-category') }}")
         .then((res) => {
@@ -113,9 +114,9 @@
                 <td>${item.name}</td>
                 <td><img src="{{ asset('${item.image}') }}" width="80px"></td>
                 <td class="text-center">
-                    <a href="" class="btn btn-sm btn-success" data-id="${item.slug}" data-toggle="modal" data-target="#viewRow"><i class="fa fa-eye"></i></a>
+                    <a href="" class="btn btn-sm btn-success" data-id="${item.slug}" data-toggle="modal" data-target="#viewModal" id="viewRow"><i class="fa fa-eye"></i></a>
                     <a href="" class="btn btn-sm btn-info" data-id="${item.slug}"><i class="fa fa-edit" data-toggle="modal" data-target="#editRow"></i></a>
-                    <a href="" class="btn btn-sm btn-danger" data-id="${item.slug}"><i class="fa fa-trash-alt" data-toggle="modal" data-target="#editRow"></i></a>
+                    <a href="" id="deleteRow" class="btn btn-sm btn-danger" data-id="${item.slug}"><i class="fa fa-trash-alt"></i></a>
                 </td>
             </tr>
             `
@@ -127,75 +128,63 @@
   //  $('#catTable').DataTable()
 
  // store
+ $('#addCategoryForm').validate({
+        rules: {
+            name: {
+                required: true
+            },
+            image :{
+                required: true
+            },
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid').addClass('is-valid');
+        }
+    });
  $('body').on('submit','#addCategoryForm',function(e){
     e.preventDefault();
     let name = $('#name');
+    let image = $('#image');
     let catError = $('#catError');
-    // console.log(name.val());
+    let imageError = $('#imageError');
     catError.text('');
-    if(name.val() === ''){
-        catError.text('Field Must not be Empty!')
-        return null;
-    }
-    axios.post("{{ route('admin.category.store') }}",{
-        name: name.val()
-    })
+    imageError.text('')
+    const data = new FormData();
+    data.append('name',name.val());
+    data.append('image', document.getElementById('image').files[0]);
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+    axios.post("{{ route('admin.category.store') }}",data)
     .then((res) => {
+        setSuccessMessage();
         getAllCategory();
         name.val('');
-        setSuccessMessage();
+        image.val(null);
     })
     .catch((err)=>{
        if(err.response.data.errors.name){
            catError.text(err.response.data.errors.name[0])
+       }
+       if(err.response.data.errors.image){
+        imageError.text(err.response.data.errors.image[0])
        }
     })
  })
 
  // delete
 
-$('body').on('click','#deleteRow',function(){
+$('body').on('click','#deleteRow',function(e){
+    e.preventDefault()
     let slug = $(this).attr('data-id');
-    let url = base_url + '/admin/category/' + slug;
-    const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger'
-  },
-  buttonsStyling: false
-})
-
-swalWithBootstrapButtons.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonText: 'Yes, delete it!',
-  cancelButtonText: 'No, cancel!',
-  reverseButtons: true,
-  margin : '5em',
-}).then((result) => {
-  if (result.isConfirmed) {
-    axios.delete(url).then(res => {
-   getAllCategory();
-})
-    swalWithBootstrapButtons.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-  } else if (
-    /* Read more about handling dismissals below */
-    result.dismiss === Swal.DismissReason.cancel
-  ) {
-    swalWithBootstrapButtons.fire(
-      'Cancelled',
-      'Your imaginary file is safe :)',
-      'error'
-    )
-  }
-})
-
+    const url = `${base_url_admin}/category/${slug}`;
+    deleteDataWithAlert(url,getAllCategory);
 })
 
 // edit
@@ -232,5 +221,31 @@ $('body').on('submit','#editForm',function(e){
        }
     })
 })
+
+// View
+$('body').on('click','#viewRow',function(){
+    let slug = $(this).data('id');
+    axios.get(`${base_url_admin}/category/${slug}`)
+    .then(res=> {
+        let {data:category} = res;
+        log(category)
+
+        let viewData = $$('#viewData');
+        viewData.innerHTML = `
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <td>${category.name}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('${category.image}') }}" width="100px" alt=""></td>
+            </tr>
+        </table>
+        `
+    });
+})
+
+
 </script>
 @endpush
