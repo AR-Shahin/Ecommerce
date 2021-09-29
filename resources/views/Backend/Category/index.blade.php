@@ -10,13 +10,15 @@
                 <h2 class="text-info">Manage Category</h2>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="catTable">
                     <tr>
                         <th>SL</th>
                         <th>Name</th>
+                        <th>Image</th>
                         <th>Actions</th>
                     </tr>
-                <tbody id="catTbody"></tbody>
+                <tbody id="catTbody">
+                </tbody>
                 </table>
             </div>
         </div>
@@ -41,6 +43,25 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="viewRow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -69,33 +90,41 @@
   </div>
 
 @endsection
-
+@push('css')
+<x-Utility.data-table-css/>
+@endpush
 @push('script')
+<x-Utility.data-table-js/>
 <script>
-    function getAllCategory(){
+
+    const getAllCategory = ()=> {
         axios.get("{{ route('admin.fetch-category') }}")
         .then((res) => {
-            table_data_row(res.data)
+            const {data} = res
+            table_data_row_(data)
         })
     }
-    getAllCategory();
-
-    function table_data_row(data) {
-            var	rows = '';
-            var i = 0;
-            $.each( data, function( key, value ) {
-                rows += '<tr>';
-                rows += '<td>'+ ++i +'</td>';
-                rows += '<td>'+value.name+'</td>';
-                rows += '<td data-id="'+value.id+'" class="text-center">';
-                rows += '<a class="btn btn-sm btn-info text-light" id="editRow" data-id="'+value.slug+'" data-toggle="modal" data-target="#editModal">Edit</a> ';
-                rows += '<a class="btn btn-sm btn-danger text-light"  id="deleteRow" data-id="'+value.slug+'" >Delete</a> ';
-                rows += '</td>';
-                rows += '</tr>';
-            });
-
-            $('#catTbody').html(rows)
- }
+   getAllCategory();
+    const table_data_row_ = (items) => {
+       let loop =  items.map((item,index) => {
+            return `
+            <tr>
+                <td>${++index}</td>
+                <td>${item.name}</td>
+                <td><img src="{{ asset('${item.image}') }}" width="80px"></td>
+                <td class="text-center">
+                    <a href="" class="btn btn-sm btn-success" data-id="${item.slug}" data-toggle="modal" data-target="#viewRow"><i class="fa fa-eye"></i></a>
+                    <a href="" class="btn btn-sm btn-info" data-id="${item.slug}"><i class="fa fa-edit" data-toggle="modal" data-target="#editRow"></i></a>
+                    <a href="" class="btn btn-sm btn-danger" data-id="${item.slug}"><i class="fa fa-trash-alt" data-toggle="modal" data-target="#editRow"></i></a>
+                </td>
+            </tr>
+            `
+        });
+        loop = loop.join("")
+        const tbody = $$('#catTbody')
+        tbody.innerHTML = loop
+    }
+  //  $('#catTable').DataTable()
 
  // store
  $('body').on('submit','#addCategoryForm',function(e){

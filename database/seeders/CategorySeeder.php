@@ -18,7 +18,8 @@ class CategorySeeder extends Seeder
         foreach ($categories as $category) {
             Category::create([
                 'name' => $category,
-                'slug' => $category
+                'slug' => $category,
+                'image' => 'storage/category/default.jpg'
             ]);
         }
     }
