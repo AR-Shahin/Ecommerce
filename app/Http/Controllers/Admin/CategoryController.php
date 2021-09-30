@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        //    info($request->all());
+        info($request->all());
         $category =  Category::create([
             'name' => $request->name,
             'slug' => $request->name,
@@ -47,10 +47,24 @@ class CategoryController extends Controller
     }
     public function update(CategoryRequest $request, Category $category)
     {
-        $category =   $category->update([
-            'name' => $request->name,
-            'slug' => $request->name
-        ]);
+        info($request->all());
+        if ($request->has('file')) {
+            dd($request->image);
+            $olgImage = $category->image;
+            info($request->file('image'));
+            $category =   $category->update([
+                'name' => $request->name,
+                'slug' => $request->name,
+                'image' => File::upload($request->file('image'), 'category')
+            ]);
+            File::deleteFile($olgImage);
+        } else {
+            $category =   $category->update([
+                'name' => $request->name,
+                'slug' => $request->name
+            ]);
+        }
+
         if ($category) {
             return true;
         } else {

@@ -3,11 +3,11 @@
 @section('title', 'Category')
 @section('master_content')
 
-<div class="row">
+<div class="row pt-3">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-info">Manage Category</h2>
+                <h3 class="text-info">Manage Category</h3>
             </div>
             <div class="card-body">
                 <table class="table table-bordered" id="catTable">
@@ -26,7 +26,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-info">Add Category</h2>
+                <h3 class="text-info">Add Category</h3>
             </div>
             <div class="card-body">
                 <form id="addCategoryForm">
@@ -75,15 +75,7 @@
         </div>
         <div class="modal-body">
           <form action="" id="editForm">
-            <div class="form-group">
-                <label for="">Category Name</label>
-                <input type="text" class="form-control" id="edit_name" placeholder="Enter Category Name">
-                <input type="hidden" id="edit_cat_slug">
-                <span class="text-danger" id="catEditError"></span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-success btn-block">Update Category</button>
-            </div>
+
           </form>
         </div>
       </div>
@@ -115,7 +107,7 @@
                 <td><img src="{{ asset('${item.image}') }}" width="80px"></td>
                 <td class="text-center">
                     <a href="" class="btn btn-sm btn-success" data-id="${item.slug}" data-toggle="modal" data-target="#viewModal" id="viewRow"><i class="fa fa-eye"></i></a>
-                    <a href="" class="btn btn-sm btn-info" data-id="${item.slug}"><i class="fa fa-edit" data-toggle="modal" data-target="#editRow"></i></a>
+                    <a href="" class="btn btn-sm btn-info" data-id="${item.slug}" data-toggle="modal" data-target="#editModal" id="editRow"><i class="fa fa-edit"></i></a>
                     <a href="" id="deleteRow" class="btn btn-sm btn-danger" data-id="${item.slug}"><i class="fa fa-trash-alt"></i></a>
                 </td>
             </tr>
@@ -190,38 +182,59 @@ $('body').on('click','#deleteRow',function(e){
 // edit
 $('body').on('click','#editRow',function(){
     let slug = $(this).data('id');
-    let url = `${base_path}/admin/category/${slug}`;
-    let edit_name = $('#edit_name');
-    let edit_cat_slug = $('#edit_cat_slug');
-    let catEditError = $('#catEditError');
-
+    let url = `${base_url_admin}/category/${slug}`;
     axios.get(url).then(res => {
         let {data} = res;
-        edit_name.val(data.name)
-        edit_cat_slug.val(data.slug);
+        let form = $$('#editForm');
+        form.innerHTML = `<div class="form-group">
+                <label for="">Category Name</label>
+                <input type="text" class="form-control" id="edit_name" value="${data.name}">
+                <input type="hidden" id="edit_cat_slug" value="${data.slug}">
+                <span class="text-danger" id="catEditError"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Category Image</label>
+                <input name="image" type="file" class="form-control" id="editImage">
+                <span class="text-danger" id="imageEditError"></span>
+                <img src="{{ asset('${data.image}') }}" alt="" width="100px" class="mt-3">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-block">Update Category</button>
+            </div>
+            `
     }).catch(err => {
         console.log(err);
     })
 })
-
 // update
 $('body').on('submit','#editForm',function(e){
     e.preventDefault()
     let slug = $('#edit_cat_slug').val();
-    let url = `${base_path}/admin/category/${slug}`;
-    axios.put(url,{
-        name : $('#edit_name').val()
-    }).then(res =>{
-        $('#editModal').modal('toggle')
-        getAllCategory();
-        setSuccessMessage('Data Updated Successfully!')
-    }).catch(err =>{
-        if(err.response.data.errors.name){
-           $('#catEditError').text(err.response.data.errors.name[0])
-       }
-    })
+    let url = `${base_url_admin}/category/${slug}`;
+    let editImage = $('#editImage');
+    let editName = $('#edit_name')
+    if(editImage.val()){
+        const data = new FormData();
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+        data.append('image',document.getElementById('editImage').files[0]);
+        log(document.getElementById('editImage').files[0])
+        sendUpdateAjaxRequest(url,{name:editName.val(),image:data}).then(res => {
+            getAllCategory();
+            setSuccessMessage('Data Update Successfully!')
+            $('#editModal').modal('toggle')
+        })
+    }else{
+        sendUpdateAjaxRequest(url,{name: editName.val()}).then(res => {
+            getAllCategory();
+            setSuccessMessage('Data Update Successfully!')
+            $('#editModal').modal('toggle')
+        })
+    }
 })
-
+const sendUpdateAjaxRequest = (url,data) => {
+    log(data)
+    return axios.put(url,data);
+}
 // View
 $('body').on('click','#viewRow',function(){
     let slug = $(this).data('id');
