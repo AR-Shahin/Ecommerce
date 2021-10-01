@@ -84,12 +84,13 @@
 <x-Utility.data-table-js/>
 <script>
  //setSuccessMessage();
-    const getAllColor = ()=> {
-        axios.get("{{ route('admin.fetch-color') }}")
-        .then((res) => {
-            const {data} = res
-            table_data_row_(data)
-        })
+    const getAllColor = async ()=> {
+      let {data} = await  axios.get("{{ route('admin.fetch-color') }}")
+        // .then((res) => {
+        //     const {data} = res
+        //     table_data_row_(data)
+        // })
+        table_data_row_(data)
     }
    getAllColor();
     const table_data_row_ = (items) => {
@@ -131,22 +132,22 @@
             $(element).removeClass('is-invalid').addClass('is-valid');
         }
     });
- $('body').on('submit','#addColorForm',function(e){
+ $('body').on('submit','#addColorForm',async function(e){
     e.preventDefault();
     let name = $('#name');
     let catError = $('#catError');
     catError.text('');
-    axios.post("{{ route('admin.color.store') }}",{name:name.val()})
-    .then((res) => {
+    try{
+        let res = await axios.post("{{ route('admin.color.store') }}",{name:name.val()});
         setSuccessMessage();
         getAllColor();
         name.val('');
-    })
-    .catch((err)=>{
-       if(err.response.data.errors.name){
+    }catch(err){
+        if(err.response.data.errors.name){
            catError.text(err.response.data.errors.name[0])
        }
-    })
+    }
+
  })
 
  // delete
