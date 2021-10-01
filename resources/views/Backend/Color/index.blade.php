@@ -86,10 +86,6 @@
  //setSuccessMessage();
     const getAllColor = async ()=> {
       let {data} = await  axios.get("{{ route('admin.fetch-color') }}")
-        // .then((res) => {
-        //     const {data} = res
-        //     table_data_row_(data)
-        // })
         table_data_row_(data)
     }
    getAllColor();

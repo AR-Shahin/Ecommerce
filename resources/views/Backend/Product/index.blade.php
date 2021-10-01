@@ -1,6 +1,6 @@
 
 @extends('layouts.backend_master')
-@section('title', 'Post')
+@section('title', 'Product')
 @push('css')
 <x-utility.data-table-css/>
 @endpush
@@ -8,13 +8,13 @@
 <div class="card">
     <div class="card-header ">
         <div class="d-flex justify-content-between">
-        <h4 class="card-title">Manage Posts</h4>
-        <a href="{{ route('admin.post.create') }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Add New Post</a>
+        <h4 class="card-title">Manage Products</h4>
+        <a href="{{ route('admin.product.create') }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Add New Product</a>
         </div>
 
     </div>
     <div class="card-body">
-        <table class="table table-bordered" id="postTable">
+        <table class="table table-bordered" id="ProductTable">
             <thead>
                 <tr>
                     <th>SL</th>
@@ -26,22 +26,22 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($posts as $post)
+            {{-- <tbody>
+                @foreach ($products as $product)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ $post->name }}</td>
-                        <td>{{ $post->author->name }}</td>
-                        <td><img src="{{ asset($post->image) }}" alt="" width="100px"></td>
-                        <td>{{ $post->view }}</td>
-                        <td>{{ $post->status == 1 ? 'Active' : 'Inactive' }}</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $product->author->name }}</td>
+                        <td><img src="{{ asset($product->image) }}" alt="" width="100px"></td>
+                        <td>{{ $product->view }}</td>
+                        <td>{{ $product->status == 1 ? 'Active' : 'Inactive' }}</td>
                         <td>
                             <a href="" id="status" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></a>
                             <a href="" class="btn btn-sm btn-warning"><i class="fa fa-arrow-down"></i></a>
-                            <a href="{{ route('admin.post.show',$post->slug) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
-                            <a href="{{ route('admin.post.edit', $post->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('admin.product.show',$product->slug) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                            <a href="{{ route('admin.product.edit', $product->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
 
-                           <form action="{{ route('admin.post.destroy', $post->slug) }}" class="d-inline" method="POST">
+                           <form action="{{ route('admin.product.destroy', $product->slug) }}" class="d-inline" method="product">
                             @csrf
                             @method('DELETE')
                             <button onclick=" return confirm('Are you Sure Delete This Data?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
@@ -49,7 +49,7 @@
                         </td>
                     </tr>
                 @endforeach
-            </tbody>
+            </tbody> --}}
         </table>
     </div>
 </div>
@@ -58,7 +58,7 @@
 @push('script')
 <x-utility.data-table-js/>
 <script>
-   $('#postTable').DataTable();
+   $('#ProductTable').DataTable();
 
 </script>
 @endpush

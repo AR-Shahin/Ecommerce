@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 
@@ -25,4 +26,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 
     Route::resource('size', SizeController::class)->except(['create', 'edit']);
     Route::get('fetch-size', [SizeController::class, 'fetchSize'])->name('fetch-size');
+
+    Route::resource('product', ProductController::class);
+    Route::get('get-sub-category-by-category/{id}', [ProductController::class, 'getSubCategoryByCategory'])->name('get-sub-cat-by-cat');
 });
