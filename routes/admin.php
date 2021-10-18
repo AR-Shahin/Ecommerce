@@ -1,13 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ColorController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\SizeController;
-use App\Http\Controllers\Admin\SliderController;
-use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\{
+    SizeController,
+    ColorController,
+    SliderController,
+    ProductController,
+    WebsiteController,
+    CategoryController,
+    DashboardController,
+    SubCategoryController
+};
+
 
 Route::get('test', fn () => view('Backend.Category.test'));
 
@@ -33,4 +37,6 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 
     Route::resource('slider', SliderController::class)->except(['create', 'edit']);
     Route::get('fetch-slider', [SliderController::class, 'fetchSlider'])->name('fetch-slider');
+
+    Route::resource('website', WebsiteController::class)->except(['create', 'store', 'destroy', 'show']);
 });
