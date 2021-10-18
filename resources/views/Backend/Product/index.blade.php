@@ -19,22 +19,20 @@
                 <tr>
                     <th>SL</th>
                     <th>Title</th>
-                    <th>Author</th>
-                    <th>Image</th>
+                    <th>Category</th>
                     <th>View</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
-            {{-- <tbody>
+            <tbody>
                 @foreach ($products as $product)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $product->name }}</td>
-                        <td>{{ $product->author->name }}</td>
-                        <td><img src="{{ asset($product->image) }}" alt="" width="100px"></td>
-                        <td>{{ $product->view }}</td>
-                        <td>{{ $product->status == 1 ? 'Active' : 'Inactive' }}</td>
+                        <td>{{ $product->category->name }}</td>
+                        <td>{{ $product->info->view }}</td>
+                        <td>{{ $product->info->status == 1 ? 'Active' : 'Inactive' }}</td>
                         <td>
                             <a href="" id="status" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></a>
                             <a href="" class="btn btn-sm btn-warning"><i class="fa fa-arrow-down"></i></a>
@@ -49,7 +47,7 @@
                         </td>
                     </tr>
                 @endforeach
-            </tbody> --}}
+            </tbody>
         </table>
     </div>
 </div>

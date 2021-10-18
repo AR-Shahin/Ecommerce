@@ -20,7 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->get();
+        $products = Product::withOnly(['info', 'category'])->latest()->get();
         return view('Backend.Product.index', compact('products'));
     }
 
@@ -79,9 +79,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return view('Backend.Product.show', compact('product'));
     }
 
     /**
