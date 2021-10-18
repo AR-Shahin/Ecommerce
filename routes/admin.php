@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 
 Route::get('test', fn () => view('Backend.Category.test'));
@@ -29,4 +30,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 
     Route::resource('product', ProductController::class);
     Route::get('get-sub-category-by-category/{id}', [ProductController::class, 'getSubCategoryByCategory'])->name('get-sub-cat-by-cat');
+
+    Route::resource('slider', SliderController::class)->except(['create', 'edit']);
+    Route::get('fetch-slider', [SliderController::class, 'fetchSlider'])->name('fetch-slider');
 });

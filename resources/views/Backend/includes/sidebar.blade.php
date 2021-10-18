@@ -71,6 +71,12 @@
           </a>
         </li> --}}
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.slider.index') }}">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>Slider</p>
+            </a>
+          </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.category.index') }}">
               <i class="nav-icon far fa-circle text-warning"></i>
               <p>Category</p>
