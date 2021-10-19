@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="text-center py-4">
-            <a class="h6 text-decoration-none text-truncate" href="">{{ $product->name }}</a>
+            <a class="h6 text-decoration-none text-truncate" href="{{ route('single-product',$product->slug) }}">{{ $product->name }}</a>
             <div class="d-flex align-items-center justify-content-center mt-2">
                 <h5>${{ $product->info->sell_price }}</h5><h6 class="text-muted ml-2"><del>${{ $product->info->price }}</del></h6>
             </div>

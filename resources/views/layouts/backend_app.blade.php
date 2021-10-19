@@ -24,7 +24,8 @@
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
-<link rel="stylesheet" href="{{ asset('plugins/toaster.css') }}">
+  <x-Utility.toaster-css/>
+
   <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/summernote/summernote-bs4.min.css">
 
   @stack('css')
@@ -72,16 +73,7 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"> </script>
-<script>
-    @if (Session::has('success'))
-    toastr.success("{{ Session::get('success') }}", 'Success!')
-    @elseif(Session::has('warning'))
-        toastr.warning("{{ Session::get('warning') }}", 'Warning!')
-    @elseif(Session::has('error'))
-        toastr.error("{{ Session::get('error') }}", 'Error!')
-    @endif
-</script>
+<x-Utility.toaster-js/>
 <script src="{{ asset('custom.js') }}"></script>
 
 @stack('script')

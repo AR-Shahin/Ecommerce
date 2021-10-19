@@ -20,6 +20,10 @@ class Product extends Model
         $this->attributes['slug'] = Str::slug($value);
     }
 
+    public function scopeSimilar($query, $id)
+    {
+        return $query->where('category_id', $id);
+    }
     public function info()
     {
         return $this->hasOne(ProductInfo::class, 'product_id');
