@@ -18,4 +18,8 @@ class Size extends Model
     {
         $this->attributes['slug'] = Str::slug($value);
     }
+    function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
