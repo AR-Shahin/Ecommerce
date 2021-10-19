@@ -1,7 +1,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+@php
+    $website = App\Models\Website::first();
+@endphp
 <head>
     <meta charset="utf-8">
     <title>@yield('title') | E-commerce</title>
@@ -80,8 +82,7 @@
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
                 <a href="" class="text-decoration-none">
-                    <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
-                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+                    <img src="{{ asset($website->logo) }}" alt="" >
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
@@ -98,7 +99,7 @@
             </div>
             <div class="col-lg-4 col-6 text-right">
                 <p class="m-0">Customer Service</p>
-                <h5 class="m-0">+012 345 6789</h5>
+                <h5 class="m-0">{{ $website->phone }}</h5>
             </div>
         </div>
     </div>
@@ -185,9 +186,9 @@
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
                 <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
                 <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor. Rebum tempor no vero est magna amet no</p>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>{{ $website->address }}</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>{{ $website->email }}m</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>{{ $website->phone }}</p>
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="row">

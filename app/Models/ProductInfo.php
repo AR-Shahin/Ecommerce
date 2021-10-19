@@ -9,4 +9,9 @@ class ProductInfo extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function scopeIsFeatured($query)
+    {
+        return $query->whereIsFeatured(true);
+    }
 }
