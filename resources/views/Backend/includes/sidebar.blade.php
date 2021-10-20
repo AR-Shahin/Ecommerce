@@ -107,6 +107,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.coupon.index') }}">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>Coupon</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.website.index') }}">
               <i class="nav-icon far fa-circle text-warning"></i>
               <p>Website</p>

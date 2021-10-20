@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\{
     ProductController,
     WebsiteController,
     CategoryController,
+    CouponController,
     DashboardController,
     SubCategoryController
 };
@@ -39,4 +40,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     Route::get('fetch-slider', [SliderController::class, 'fetchSlider'])->name('fetch-slider');
 
     Route::resource('website', WebsiteController::class)->except(['create', 'store', 'destroy', 'show']);
+
+    Route::resource('coupon', CouponController::class)->except(['create', 'edit']);
+    Route::get('fetch-coupon', [CouponController::class, 'fetchCoupon'])->name('fetch-coupon');
 });
