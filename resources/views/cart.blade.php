@@ -2,7 +2,6 @@
 @section('title','Shop')
 
 @section('app_content')
-
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -38,9 +37,6 @@
                         @endphp
                         <form action="">
                             @foreach (Cart::content() as $item)
-                            {{-- @php
-                                dd($item)
-                            @endphp --}}
                                 <tr>
                                     <td class="align-middle"><img src="{{ asset($item->options->image) }}" alt="" style="width: 50px;">
                                         <a href="{{ route('single-product',$item->options->slug) }}" style="color: #111;text-deoration:none">
@@ -84,14 +80,37 @@
                 </table>
             </div>
             <div class="col-lg-4">
-                <form class="mb-30" action="">
+                @if (!session('coupon'))
+                <form class="mb-30" action="{{ route('coupon') }}" method="POST">
+                    @csrf
+                    @error('name')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     <div class="input-group">
-                        <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code">
+                        <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code" name="name" value="{{ old('name') }}">
                         <div class="input-group-append">
                             <button class="btn btn-primary">Apply Coupon</button>
                         </div>
                     </div>
                 </form>
+                @else
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-1">
+                            <h6 class="font-weight-medium text-success">Coupon Applied (<b><span>{{ session('coupon')['name'] }}</span></b>)</h6>
+                            <h6 class="font-weight-medium">
+                                <span>Discount : </span>
+                                <span class="text-success">{{ session('coupon')['discount'] }}%</span>
+                            </h6>
+                        </div>
+                        <form action="{{ route('coupon') }}" class="d-inline" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-warning btn-block"><i class="fa fa-trash"></i>  Remove Coupon</button>
+                        </form>
+                    </div>
+                </div>
+                @endif
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom pb-2">
@@ -99,15 +118,26 @@
                             <h6>Subtotal</h6>
                             <h6>${{ Cart::subtotal() }}</h6>
                         </div>
-                        {{-- <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">$10</h6>
-                        </div> --}}
+                        @if (session('coupon'))
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>Discount</h6>
+                            @php
+                                $discount = (session('coupon')['discount']) / 100;
+                                $discountAmount = (float)Cart::subtotal() * $discount;
+                            @endphp
+                            <h6>${{ $discountAmount}}</h6>
+                        </div>
+                        @endif
+
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
+                            @if (session('coupon'))
+                            {{(float)Cart::subtotal() - $discountAmount}}
+                            @else
                             <h5>${{ Cart::subtotal()}}</h5>
+                            @endif
                         </div>
                         <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
                     </div>

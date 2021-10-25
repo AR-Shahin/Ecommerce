@@ -9,7 +9,13 @@ class Coupon extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
     protected $casts = [
         'expired_date' => 'datetime:Y-m-d',
     ];
+
+    public function scopeIsActive($query)
+    {
+        return $query->whereStatus(true);
+    }
 }
