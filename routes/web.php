@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\Frontend\Auth\{
     AuthenticatedSessionController,
-    RegisteredUserController
+    RegisteredUserController,
+    SocialLoginController
 };
 use App\Http\Controllers\Frontend\{
     CartController,
@@ -34,6 +35,10 @@ Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('lo
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+# Social Login
+Route::get('/auth/redirect/{provider}', [SocialLoginController::class, 'login'])->name(('social.login'));
+Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'callback'])->name('social.callback');
 
 Route::get('test', function () {
     return view('layouts.frontend_master');
