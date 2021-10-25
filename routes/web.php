@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Frontend\Auth\{
+    AuthenticatedSessionController,
+    RegisteredUserController
+};
 use App\Http\Controllers\Frontend\{
     CartController,
     CouponController,
@@ -24,9 +28,9 @@ Route::put('/cart/{id}', [CartController::class, 'updateSingleItem'])->name('car
 Route::post('coupon', [CouponController::class, 'checkCouponIsValid'])->name('coupon');
 Route::delete('coupon', [CouponController::class, 'removeCoupon'])->name('coupon');
 
-
-
-
+# auth
+Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
