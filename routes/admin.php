@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\{
 };
 
 
-Route::get('test', fn () => view('Backend.Category.test'));
+// Route::get('test', fn () => view('Backend.Category.test'));
 
 Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function () {
 

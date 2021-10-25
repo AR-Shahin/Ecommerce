@@ -31,9 +31,14 @@ Route::delete('coupon', [CouponController::class, 'removeCoupon'])->name('coupon
 # auth
 Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+
+Route::get('test', function () {
+    return view('layouts.frontend_master');
+});
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return view('Frontend.dashboard');
+})->name('dashboard');
 
 
 require __DIR__ . '/admin_auth.php';
