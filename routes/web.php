@@ -30,7 +30,10 @@ Route::delete('coupon', [CouponController::class, 'removeCoupon'])->name('coupon
 
 # auth
 Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::get('test', function () {
     return view('layouts.frontend_master');

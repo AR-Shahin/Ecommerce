@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="text-center text-info">Login</h3>
-                    <form action="" class="mt-2">
+                    <form action="{{ route('login') }}" class="mt-2" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for=""><b>Email : </b></label>

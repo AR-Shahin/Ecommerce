@@ -47,9 +47,18 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                         <div class="dropdown-menu dropdown-menu-right">
+                            @auth('customer')
+                                <a class="dropdown-item" type="button" href="{{ route('dashboard') }}" >Dashboard</a>
+                                <form action="{{ route('logout') }}" class="d-inline" method="POST">
+                                    @csrf
+                                    <button class="btn btn-success btn-block">Logout</button>
+                                </form>
+                            @endauth
+
+                            @guest('customer')
                             <a class="dropdown-item" type="button" href="{{ route('login') }}">Sign in</a>
                             <a class="dropdown-item" type="button" href="{{ route('register') }}" >Sign up</a>
-                            <a class="dropdown-item" type="button" href="{{ route('dashboard') }}" >Dashboard</a>
+                            @endguest
                         </div>
                     </div>
                     <div class="btn-group mx-2">

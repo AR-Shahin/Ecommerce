@@ -12,6 +12,12 @@
                 <li class="list-group-item "><a href="" class="text-dark">Coments</a></li>
                 <li class="list-group-item "><a href="" class="text-dark">Profile</a></li>
                 <li class="list-group-item "><a href="" class="text-dark">Setting</a></li>
+                <li class="list-group-item ">
+                    <form action="{{ route('logout') }}" class="d-inline" method="POST">
+                        @csrf
+                        <button class="btn btn-success btn-block">Logout</button>
+                    </form>
+                </li>
               </ul>
         </div>
         <div class="col-md-8">
