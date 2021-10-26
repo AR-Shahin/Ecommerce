@@ -1,10 +1,10 @@
 @extends('layouts.frontend_app')
 
-@section('title','Shipping')
+@section('title','Shipping & Payment')
 
 @section('app_content')
 <div class="container">
-<h2 class="text-center text-success">Shipping <i class="fa fa-truck"></i></h2>
+<h2 class="text-center text-success">Shipping <i class="fa fa-truck"></i> & Payment <i class="fa fa-buck"></i></h2>
 <hr>
 <form action="">
     <div class="row">

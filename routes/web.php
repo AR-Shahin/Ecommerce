@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\{
     CouponController,
     HomeController,
     ProductController,
+    ShippingController,
     ShopController
 };
 
@@ -21,9 +22,11 @@ Route::get('product/{product}', [ProductController::class, 'singleProduct'])->na
 
 # Cart
 Route::post('cart/{product}', [CartController::class, 'addToCart'])->name('add-to-cart');
-Route::get('/cart', [CartController::class, 'viewCart'])->name('cart');
-Route::delete('/cart/{id}', [CartController::class, 'removeSingleItem'])->name('cart.remove_single');
-Route::put('/cart/{id}', [CartController::class, 'updateSingleItem'])->name('cart.update_single');
+Route::middleware('cart')->group(function () {
+    Route::get('/cart', [CartController::class, 'viewCart'])->name('cart');
+    Route::delete('/cart/{id}', [CartController::class, 'removeSingleItem'])->name('cart.remove_single');
+    Route::put('/cart/{id}', [CartController::class, 'updateSingleItem'])->name('cart.update_single');
+});
 
 # Coupon
 Route::post('coupon', [CouponController::class, 'checkCouponIsValid'])->name('coupon');
@@ -39,6 +42,15 @@ Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name(
 # Social Login
 Route::get('/auth/redirect/{provider}', [SocialLoginController::class, 'login'])->name(('social.login'));
 Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'callback'])->name('social.callback');
+
+# Shipping
+Route::middleware(['auth:customer', 'cart'])->group(function () {
+    Route::get('shipping', [ShippingController::class, 'shipping'])->name('shipping');
+    Route::post('shipping', [ShippingController::class, 'storeShippingAndOrder'])->name('shipping');
+});
+
+
+
 
 Route::get('test', function () {
     return view('Frontend.cart.shipping');

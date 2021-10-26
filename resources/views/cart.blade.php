@@ -139,7 +139,7 @@
                             <h5>${{ Cart::subtotal()}}</h5>
                             @endif
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                        <a href="{{ route('shipping') }}" class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>
