@@ -15,6 +15,13 @@ class CreateShippingsTable extends Migration
     {
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('region');
+            $table->string('city');
+            $table->string('address');
+            $table->text('remark');
             $table->timestamps();
         });
     }

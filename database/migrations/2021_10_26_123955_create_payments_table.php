@@ -15,6 +15,12 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->enum('method', ['cash', 'bksh']);
+            $table->double('total_amnt');
+            $table->double('amount')->nullable();
+            $table->string('trans_id')->nullable();
+            $table->string('coupon')->nullable();
+            $table->integer('discount')->nullable();
             $table->timestamps();
         });
     }

@@ -28,6 +28,7 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('Frontend') }}/css/style.css" rel="stylesheet">
     <x-Utility.toaster-css/>
+    @stack('css')
 </head>
 
 <body>
@@ -280,6 +281,8 @@
     <!-- Template Javascript -->
     <script src="{{ asset('Frontend') }}/js/main.js"></script>
     <x-Utility.toaster-js/>
+
+    @stack('script')
 </body>
 
 </html>
