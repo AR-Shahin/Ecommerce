@@ -41,7 +41,7 @@ Route::get('/auth/redirect/{provider}', [SocialLoginController::class, 'login'])
 Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'callback'])->name('social.callback');
 
 Route::get('test', function () {
-    return view('layouts.frontend_master');
+    return view('Frontend.cart.shipping');
 });
 
 Route::get('/dashboard', function () {
