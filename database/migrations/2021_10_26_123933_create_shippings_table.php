@@ -21,7 +21,7 @@ class CreateShippingsTable extends Migration
             $table->string('region');
             $table->string('city');
             $table->string('address');
-            $table->text('remark');
+            $table->text('remark')->nullable();
             $table->timestamps();
         });
     }

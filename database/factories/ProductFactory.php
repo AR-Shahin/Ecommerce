@@ -28,6 +28,7 @@ class ProductFactory extends Factory
             'sub_cat_id' => rand(1, 5),
             'color_id' => rand(1, 5),
             'size_id' => rand(1, 5),
+            'quantity' => rand(30, 50),
             'short_des' => $this->faker->text,
             'long_des' => $this->faker->text,
         ];

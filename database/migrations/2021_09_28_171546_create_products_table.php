@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('sub_cat_id')->constrained('sub_categories')->onDelete('cascade');
             $table->string('name');
             $table->string('slug');
+            $table->integer('quantity')->nullable();
             $table->text('short_des');
             $table->text('long_des');
             $table->timestamps();

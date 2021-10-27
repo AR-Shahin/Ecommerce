@@ -9,12 +9,15 @@ use App\Http\Requests\ShippingRequest;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\Shipping;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class ShippingController extends Controller
 {
     protected $order;
+    protected $product;
+    protected $quantity;
     public function shipping()
     {
         return view('Frontend.cart.shipping');
@@ -67,8 +70,11 @@ class ShippingController extends Controller
                     'price' =>  $cart->price,
                     'quantity' =>  $cart->qty
                 ]);
+
+                Product::find($cart->id)->decrement('quantity', $cart->qty);
             }
             Cart::destroy();
+            session()->forget('coupon');
         });
         if ($this->order) {
             session()->flash('success', 'Accept Your Order');

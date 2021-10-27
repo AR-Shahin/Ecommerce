@@ -24,8 +24,8 @@
                 <table class="table table-light table-borderless table-hover text-center mb-0">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Products</th>
-                            <th>Price</th>
+                            <th>Products {{ Cart::subtotal() }}</th>
+                            <th>Price </th>
                             <th>Quantity</th>
                             <th>Total</th>
                             <th>Actions</th>

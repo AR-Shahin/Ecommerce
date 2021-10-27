@@ -14,12 +14,14 @@ class SliderSeeder extends Seeder
      */
     public function run()
     {
-        // $sliders = ['Red', 'Green', 'Purple', 'Orange', 'Pink'];
-        // foreach ($sliders as $slider) {
-        //     Slider::create([
-        //         'title' => $slider,
-        //         'image' => $slider
-        //     ]);
-        // }
+        $sliders = ['Title One', 'Title Two', 'Title Three'];
+        $contents = ['No dolore ipsum accusam no lorem.', 'No dolore ipsum accusam no lorem.', 'No dolore ipsum accusam no lorem. Three'];
+        foreach ($sliders as $key => $slider) {
+            Slider::create([
+                'title' => $slider,
+                'content' => $contents[$key],
+                'image' => 'storage/Slider/slider.jpg'
+            ]);
+        }
     }
 }

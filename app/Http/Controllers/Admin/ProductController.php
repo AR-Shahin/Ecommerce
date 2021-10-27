@@ -55,6 +55,7 @@ class ProductController extends Controller
             'size_id' => $request->size_id,
             'short_des' => $request->short_des,
             'long_des' => $request->long_des,
+            'quantity' => $request->quantity,
         ]);
         if ($product) {
             $product->info()->create([

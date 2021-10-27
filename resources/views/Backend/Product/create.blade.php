@@ -120,6 +120,15 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-2">
+                    <div class="form-gorup">
+                        <label for="">Quantity</label>
+                        <input type="number" name="quantity" id="quantity" class="form-control" placeholder="quantity">
+                        @error('quantity')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                   </div>
                <div class="col-md-2">
                 <div class="form-gorup">
                     <label for="">Price</label>

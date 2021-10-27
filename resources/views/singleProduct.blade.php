@@ -57,6 +57,12 @@
                     <small class="pt-1">(99 Reviews)</small>
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">${{ $product->info->sell_price }}</h3>
+                <h5 class="">Quantity :
+                    @if ($product->quantity == 0)
+                    <span class="text-danger">Out Of Stock</span>
+                    @else
+                    {{ $product->quantity }}
+                    @endif
                 <p class="mb-4"{!! $product->short_des !!}</p>
                 <div class="d-flex mb-3">
                     <strong class="text-dark mr-3">Sizes:</strong>
@@ -73,26 +79,31 @@
                             <label class="custom-control-label" for="color-1">{{ $product->color->name }}</label>
                         </div>
                 </div>
-                <form action="{{ route('add-to-cart',$product) }}" method="POST">
-                    @csrf
-                    <div class="d-flex align-items-center mb-4 pt-2">
-                        <div class="input-group quantity mr-3" style="width: 130px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus" type="button">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+
+                @if ($product->quantity == 0)
+                    <span class="text-danger">Out Of Stock</span>
+                    @else
+                    <form action="{{ route('add-to-cart',$product) }}" method="POST">
+                        @csrf
+                        <div class="d-flex align-items-center mb-4 pt-2">
+                            <div class="input-group quantity mr-3" style="width: 130px;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-minus" type="button">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="number" class="form-control bg-secondary border-0 text-center" value="1" min="1" name="quantity">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-plus" type="button">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <input type="number" class="form-control bg-secondary border-0 text-center" value="1" min="1" name="quantity">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus" type="button">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
+                            <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                            Cart</button>
                         </div>
-                        <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                        Cart</button>
-                    </div>
-                </form>
+                    </form>
+                @endif
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Share on:</strong>
                     <div class="d-inline-flex">
