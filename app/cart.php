@@ -58,3 +58,8 @@ function totalAmount()
         return totalPriceWithShipping();
     }
 }
+
+function calculateDiscount($amount, $dis)
+{
+    return $amount * ($dis / 100);
+}

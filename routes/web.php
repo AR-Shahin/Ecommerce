@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\{
     CartController,
     CouponController,
     HomeController,
+    OrderController,
     ProductController,
     ShippingController,
     ShopController
@@ -49,15 +50,17 @@ Route::middleware(['auth:customer', 'cart'])->group(function () {
     Route::post('shipping', [ShippingController::class, 'storeShippingAndOrder'])->name('shipping');
 });
 
+# Order
 
-
-
+Route::get('orders', [OrderController::class, 'index'])->name('orders');
+Route::get('order-details/{id}', [OrderController::class, 'getOrderDetails'])->name('order_details');
 Route::get('test', function () {
     return view('Frontend.cart.shipping');
 });
 
 Route::get('/dashboard', function () {
-    return view('Frontend.dashboard');
+    $navItem = 'dashboard';
+    return view('Frontend.dashboard', compact('navItem'));
 })->name('dashboard');
 
 

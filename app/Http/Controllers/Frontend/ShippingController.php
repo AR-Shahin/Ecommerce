@@ -57,6 +57,7 @@ class ShippingController extends Controller
             ]);
 
             $this->order = Order::create([
+                'unique_id' => generateUniqueId(),
                 'customer_id' => auth('customer')->id(),
                 'payment_id' => $payment->id,
                 'shipping_id' => $shipping->id,
