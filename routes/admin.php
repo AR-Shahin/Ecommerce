@@ -10,7 +10,8 @@ use App\Http\Controllers\Admin\{
     CategoryController,
     CouponController,
     DashboardController,
-    SubCategoryController
+    SubCategoryController,
+    OrderController
 };
 
 
@@ -43,4 +44,8 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 
     Route::resource('coupon', CouponController::class)->except(['create', 'edit']);
     Route::get('fetch-coupon', [CouponController::class, 'fetchCoupon'])->name('fetch-coupon');
+
+
+    # Order
+    Route::get('orders', [OrderController::class, 'index'])->name('orders');
 });
