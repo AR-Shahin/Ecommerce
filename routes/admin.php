@@ -48,4 +48,6 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 
     # Order
     Route::get('orders', [OrderController::class, 'index'])->name('orders');
+    Route::put('orders_on_going/{id}', [OrderController::class, 'makeOrderOnGoing'])->name('orders_on_going');
+    Route::put('orders_received/{id}', [OrderController::class, 'makeOrderReceived'])->name('orders_received');
 });
