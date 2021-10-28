@@ -100,6 +100,7 @@
                     <th colspan="4">
                         <h6 class="text-center">Products</h6>
                     </th>
+                </tr>
                     <tr>
                         <th>SL</th>
                         <th width="10%">Name</th>

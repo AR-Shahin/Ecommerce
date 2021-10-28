@@ -50,11 +50,13 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     Route::get('order-details/{id}', [OrderController::class, 'orderDetails'])->name('order_details');
     Route::put('orders_on_going/{id}', [OrderController::class, 'makeOrderOnGoing'])->name('orders_on_going');
     Route::put('orders_received/{id}', [OrderController::class, 'makeOrderReceived'])->name('orders_received');
+
+    Route::get('order_pdf/{id}', [OrderController::class, 'orderDetailsPdf'])->name('order_details_pdf');
 });
 
 
 
 // Route::get('pdf', function () {
-//     $pdf = PDF::loadView('welcome');
+//     $pdf = PDF::loadView('pdf.order_details');
 //     return $pdf->stream('document.pdf');
 // });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class OrderController extends Controller
 {
@@ -36,5 +37,12 @@ class OrderController extends Controller
         $order = $id->load(['shipping', 'payment', 'products', 'customer']);
 
         return view('Backend.order.details', compact('order'));
+    }
+
+    public function orderDetailsPdf(Order $id)
+    {
+        $order = $id->load(['shipping', 'payment', 'products', 'customer']);
+        $pdf = PDF::loadView('pdf.order_details', compact('order'));
+        return $pdf->download("{$order->unique_id}.pdf");
     }
 }
