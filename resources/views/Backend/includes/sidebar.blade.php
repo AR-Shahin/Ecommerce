@@ -71,56 +71,62 @@
           </a>
         </li> --}}
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                <i class=" nav-icon fa fa-home"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.slider.index') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+                <i class="nav-icon fas fa-sliders-h"></i>
               <p>Slider</p>
             </a>
           </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.category.index') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon fas fa-sitemap text-warning"></i>
               <p>Category</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.sub-category.index') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon fas fa-sitemap text-warning"></i>
               <p>Sub Category</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.size.index') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon far fa-window-maximize text-warning"></i>
               <p>Size</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.color.index') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon fas fa-palette text-warning"></i>
               <p>Color</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.product.index') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon fab fa-product-hunt text-warning"></i>
               <p>Product</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.coupon.index') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon fas fa-ad text-warning"></i>
               <p>Coupon</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.website.index') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon fas fa-globe-asia text-warning"></i>
               <p>Website</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.orders') }}">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon fas fa-th text-warning"></i>
               <p>Orders</p>
             </a>
           </li>

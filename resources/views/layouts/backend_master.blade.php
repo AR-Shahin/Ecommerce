@@ -35,7 +35,9 @@
           <!-- Small boxes (Stat box) -->
               <!-- All content goes form here -->
 
-            @yield('master_content')
+            <div class="">
+                @yield('master_content')
+            </div>
 
           <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
