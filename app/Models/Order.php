@@ -19,6 +19,22 @@ class Order extends Model
     {
         return $query->where('customer_id', auth('customer')->id());
     }
+
+    function scopePending($query)
+    {
+        return $query->whereStatus('pending');
+    }
+
+    function scopeOnGoing($query)
+    {
+        return $query->whereStatus('ongoing');
+    }
+
+    function scopeReceived($query)
+    {
+        return $query->whereStatus('received');
+    }
+
     public function getRouteKeyName()
     {
         return 'unique_id';

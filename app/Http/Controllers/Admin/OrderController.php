@@ -45,4 +45,20 @@ class OrderController extends Controller
         $pdf = PDF::loadView('pdf.order_details', compact('order'));
         return $pdf->download("{$order->unique_id}.pdf");
     }
+
+    public function pendingOrder()
+    {
+        $orders = Order::pending()->get();
+        return view('Backend.order.pending', compact('orders'));
+    }
+    public function onGoingOrder()
+    {
+        $orders = Order::onGoing()->get();
+        return view('Backend.order.ongoing', compact('orders'));
+    }
+    public function receivedOrder()
+    {
+        $orders = Order::received()->get();
+        return view('Backend.order.received', compact('orders'));
+    }
 }

@@ -52,6 +52,10 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     Route::put('orders_received/{id}', [OrderController::class, 'makeOrderReceived'])->name('orders_received');
 
     Route::get('order_pdf/{id}', [OrderController::class, 'orderDetailsPdf'])->name('order_details_pdf');
+
+    Route::get('orders/pending', [OrderController::class, 'pendingOrder'])->name('orders.pending');
+    Route::get('orders/ongoing', [OrderController::class, 'onGoingOrder'])->name('orders.onGoing');
+    Route::get('orders/received', [OrderController::class, 'receivedOrder'])->name('orders.received');
 });
 
 

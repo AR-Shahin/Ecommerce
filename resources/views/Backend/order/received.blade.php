@@ -1,6 +1,6 @@
 
 @extends('layouts.backend_master')
-@section('title', 'Order')
+@section('title', 'Received Order')
 @push('css')
 <x-utility.data-table-css/>
 @endpush
@@ -8,12 +8,12 @@
 <div class="card ">
     <div class="card-header ">
         <div class="d-flex justify-content-between">
-            <h3 class="card-title">Manage Orders</h3>
+            <h3 class="card-title">Manage Received Orders</h3>
             <div>
                 <div class="btn-group" role="group" aria-label="Second group">
+                    <a href="{{ route('admin.orders') }}" type="button" class="btn btn-success">Back</a>
                     <a href="{{ route('admin.orders.pending') }}" type="button" class="btn btn-warning">Pending</a>
                     <a href="{{ route('admin.orders.onGoing') }}" type="button" class="btn btn-info">On Going</a>
-                    <a href="{{ route('admin.orders.received') }}" type="button" class="btn btn-success">Received</a>
                   </div>
             </div>
         </div>
@@ -38,22 +38,6 @@
                         <td>{{ Str::ucfirst($order->status) }}</td>
                         <td class="text-center">
                             <a href="{{ route('admin.order_details',$order->unique_id) }}" class="btn btn-sm rounded btn-success"><i class="fa fa-eye"></i></a>
-
-                            @if ($order->status === 'pending')
-                            <form action="{{ route('admin.orders_on_going',$order->unique_id) }}" class="d-inline" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <button class="btn btn-sm rounded btn-warning">On Going</button>
-                            </form>
-                            @endif
-
-                            @if ($order->status === 'ongoing')
-                            <form action="{{ route('admin.orders_received',$order->unique_id) }}" class="d-inline" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <button class="btn btn-sm rounded btn-success">Received</button>
-                            </form>
-                            @endif
                             <a href="" class="btn btn-sm rounded btn-danger"><i class="fa fa-trash"></i></a>
                             <a target="_blank" href="{{ route('admin.order_details_pdf',$order->unique_id) }}" class="btn btn-sm rounded btn-info"><i class="fa fa-print"></i></a>
                         </td>

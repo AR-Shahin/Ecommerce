@@ -21,6 +21,7 @@
                     <th>Title</th>
                     <th>Category</th>
                     <th>View</th>
+                    <th>Quantity</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -32,6 +33,7 @@
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->category->name }}</td>
                         <td>{{ $product->info->view }}</td>
+                        <td>{{ $product->quantity }}</td>
                         <td>{{ $product->info->status == 1 ? 'Active' : 'Inactive' }}</td>
                         <td>
                             <a href="" id="status" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></a>
