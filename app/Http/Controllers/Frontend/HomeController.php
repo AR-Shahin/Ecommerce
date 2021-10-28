@@ -20,6 +20,6 @@ class HomeController extends Controller
         $data['featured_products'] = Product::withOnly('info')->whereHas('info', function ($query) {
             $query->isFeatured();
         })->latest()->take(8)->get();
-        return view('welcome', $data);
+        return view('home', $data);
     }
 }

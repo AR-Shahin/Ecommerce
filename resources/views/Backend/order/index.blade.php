@@ -55,6 +55,7 @@
                             </form>
                             @endif
                             <a href="" class="btn btn-sm rounded btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="" class="btn btn-sm rounded btn-info"><i class="fa fa-print"></i></a>
                         </td>
                     </tr>
                 @endforeach

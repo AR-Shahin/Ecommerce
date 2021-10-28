@@ -14,7 +14,6 @@ use App\Http\Controllers\Admin\{
     OrderController
 };
 
-
 // Route::get('test', fn () => view('Backend.Category.test'));
 
 Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function () {
@@ -52,3 +51,10 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     Route::put('orders_on_going/{id}', [OrderController::class, 'makeOrderOnGoing'])->name('orders_on_going');
     Route::put('orders_received/{id}', [OrderController::class, 'makeOrderReceived'])->name('orders_received');
 });
+
+
+
+// Route::get('pdf', function () {
+//     $pdf = PDF::loadView('welcome');
+//     return $pdf->stream('document.pdf');
+// });

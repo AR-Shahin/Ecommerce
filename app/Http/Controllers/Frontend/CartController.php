@@ -16,7 +16,7 @@ class CartController extends Controller
             session()->flash('warning', 'Cart is Empty!');
             return redirect()->route('shop');
         }
-        return view('cart');
+        return view('Frontend.cart.index');
     }
 
     function addToCart(Request $request, Product $product)
