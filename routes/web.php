@@ -34,11 +34,13 @@ Route::post('coupon', [CouponController::class, 'checkCouponIsValid'])->name('co
 Route::delete('coupon', [CouponController::class, 'removeCoupon'])->name('coupon');
 
 # auth
-Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
-Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
-Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
-Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::middleware('guest:customer')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
+});
+
 
 # Social Login
 Route::get('/auth/redirect/{provider}', [SocialLoginController::class, 'login'])->name(('social.login'));
@@ -50,18 +52,24 @@ Route::middleware(['auth:customer', 'cart'])->group(function () {
     Route::post('shipping', [ShippingController::class, 'storeShippingAndOrder'])->name('shipping');
 });
 
-# Order
 
-Route::get('orders', [OrderController::class, 'index'])->name('orders');
-Route::get('order-details/{id}', [OrderController::class, 'getOrderDetails'])->name('order_details');
+Route::middleware('auth:customer')->group(function () {
+    # Order
+    Route::get('orders', [OrderController::class, 'index'])->name('orders');
+    Route::get('order-details/{id}', [OrderController::class, 'getOrderDetails'])->name('order_details');
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::get('/dashboard', function () {
+        $navItem = 'dashboard';
+        return view('Frontend.dashboard', compact('navItem'));
+    })->name('dashboard');
+});
+
+
 Route::get('test', function () {
     return view('Frontend.cart.shipping');
 });
 
-Route::get('/dashboard', function () {
-    $navItem = 'dashboard';
-    return view('Frontend.dashboard', compact('navItem'));
-})->name('dashboard');
+
 
 
 require __DIR__ . '/admin_auth.php';
