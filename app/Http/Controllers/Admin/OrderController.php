@@ -29,4 +29,12 @@ class OrderController extends Controller
         session()->flash('success', 'Order Status Changed!!');
         return back();
     }
+
+
+    public function orderDetails(Order $id)
+    {
+        $order = $id->load(['shipping', 'payment', 'products']);
+
+        return view('Backend.order.details', compact('order'));
+    }
 }

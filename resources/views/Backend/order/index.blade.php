@@ -37,7 +37,7 @@
                         <td>{{ $order->created_at->diffForHumans() }}</td>
                         <td>{{ Str::ucfirst($order->status) }}</td>
                         <td class="text-center">
-                            <a href="" class="btn btn-sm rounded btn-success"><i class="fa fa-eye"></i></a>
+                            <a href="{{ route('admin.order_details',$order->unique_id) }}" class="btn btn-sm rounded btn-success"><i class="fa fa-eye"></i></a>
 
                             @if ($order->status === 'pending')
                             <form action="{{ route('admin.orders_on_going',$order->unique_id) }}" class="d-inline" method="POST">
