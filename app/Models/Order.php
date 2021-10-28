@@ -24,6 +24,11 @@ class Order extends Model
         return 'unique_id';
     }
 
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public function payment(): BelongsTo
     {
         return $this->belongsTo(Payment::class, 'payment_id');

@@ -48,6 +48,29 @@
                 </tr>
                 <tr>
                     <th colspan="4">
+                        <h6 class="text-center">Customer Details</h6>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ $order->customer->name }}</td>
+                    <th>Email</th>
+                    <td>{{ $order->customer->email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ $order->customer->phone }}</td>
+                    <th>Region</th>
+                    <td>{{ $order->customer->region }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ $order->customer->city }}</td>
+                    <th>Address</th>
+                    <td>{{ $order->customer->address }}</td>
+                </tr>
+                <tr>
+                    <th colspan="4">
                         <h6 class="text-center">Shipping Address</h6>
                     </th>
                 </tr>

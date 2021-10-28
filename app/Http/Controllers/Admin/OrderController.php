@@ -33,7 +33,7 @@ class OrderController extends Controller
 
     public function orderDetails(Order $id)
     {
-        $order = $id->load(['shipping', 'payment', 'products']);
+        $order = $id->load(['shipping', 'payment', 'products', 'customer']);
 
         return view('Backend.order.details', compact('order'));
     }
