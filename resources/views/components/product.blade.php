@@ -19,12 +19,16 @@
                 <h5>${{ $product->info->sell_price }}</h5><h6 class="text-muted ml-2"><del>${{ $product->info->price }}</del></h6>
             </div>
             <div class="d-flex align-items-center justify-content-center mb-1">
-                <small class="fa fa-star text-primary mr-1"></small>
-                <small class="fa fa-star text-primary mr-1"></small>
-                <small class="fa fa-star text-primary mr-1"></small>
-                <small class="far fa-star text-primary mr-1"></small>
-                <small class="far fa-star text-primary mr-1"></small>
-                <small>(99)</small>
+                 @php
+                $star = calculateProductStar($product->reviews);
+            @endphp
+
+            @if($star)
+                @for ($i = 1 ; $i <= $star; $i++)
+                <i class="fa fa-star text-warning"></i>
+                @endfor
+            @endif
+                <small>({{ count($product->reviews) }})</small>
             </div>
         </div>
     </div>
