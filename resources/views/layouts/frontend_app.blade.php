@@ -17,7 +17,11 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
+<style>
+    li{
+        list-style: none;
+    }
+</style>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
@@ -50,7 +54,7 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             @auth('customer')
                                 <a class="dropdown-item" type="button" href="{{ route('dashboard') }}" >Dashboard</a>
-                                <form action="{{ route('logout') }}" class="d-inline" method="POST">
+                                <form action="{{ route('logout') }}" class="d-inline" method="product">
                                     @csrf
                                     <button class="btn btn-success btn-block">Logout</button>
                                 </form>
@@ -100,7 +104,7 @@
             <div class="col-lg-4 col-6 text-left">
                 <form action="">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" placeholder="Search for products" id="searchInput">
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -108,6 +112,9 @@
                         </div>
                     </div>
                 </form>
+                <div id="searchData" class="mt-2">
+                    <ul style="padding: 0"></ul>
+                </div>
             </div>
             <div class="col-lg-4 col-6 text-right">
                 <p class="m-0">Customer Service</p>
@@ -280,9 +287,34 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('Frontend') }}/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
     <x-Utility.toaster-js/>
 
     @stack('script')
+    <script>
+         let searchInput = document.querySelector('#searchInput');
+        searchInput.addEventListener('keyup',async function(e) {
+            let query = e.target.value;
+            let url = `${window.location.origin}/search-product/${query}`;
+            if(searchInput.value){
+                const {data} = await axios.get(url)
+                showProductData(data)
+            }
+        })
+        const showProductData = (products) => {
+            let searchData = document.querySelector('#searchData > ul');
+            let li ;
+            if(Object.keys(products).length === 0) {
+                li = `<li style="list-style:none;text-align:center;background:#ccc" class="p-2 text-danger">No product Found!!</li>`;
+            }else{
+            li = products.map(product => {
+                    return `<li><a href="${window.location.origin}/product/${product.slug}">${product.name} </a></li>`;
+                });
+                li = li.join(" ");
+            }
+            searchData.innerHTML = li
+        }
+    </script>
 </body>
 
 </html>

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
 Route::get('product/{product}', [ProductController::class, 'singleProduct'])->name('single-product');
-
+Route::get('search-product/{query}', [ProductController::class, 'dynamicSearch'])->name('dynamic-search');
 # Cart
 Route::post('cart/{product}', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::middleware('cart')->group(function () {
@@ -59,15 +59,16 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('orders', [OrderController::class, 'index'])->name('orders');
     Route::get('order-details/{id}', [OrderController::class, 'getOrderDetails'])->name('order_details');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+    # Review
+    Route::post('review', [ReviewController::class, 'store'])->name('review');
     Route::get('/dashboard', function () {
         $navItem = 'dashboard';
         return view('Frontend.dashboard', compact('navItem'));
     })->name('dashboard');
 });
 
-# Review
 
-Route::post('review', [ReviewController::class, 'store'])->name('review');
 
 
 

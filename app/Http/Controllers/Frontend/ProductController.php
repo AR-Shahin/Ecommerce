@@ -14,4 +14,9 @@ class ProductController extends Controller
         $related_products = Product::Similar($product->category_id)->inRandomOrder()->take(4)->get();
         return view('singleProduct', compact('product', 'related_products'));
     }
+
+    public function dynamicSearch($query)
+    {
+        return Product::where('name', 'like', "%$query%")->get(['name', 'slug']);
+    }
 }
