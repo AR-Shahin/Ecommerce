@@ -151,20 +151,26 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h4 class="mb-4">{{ count($product->reviews) }} review for "{{ $product->name }}"</h4>
+
+                                @foreach ($product->reviews as $review)
                                 <div class="media mb-4">
-                                    <img src="{{ asset('Frontend') }}/img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                    <img src="{{ asset($review->customer->image) }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                     <div class="media-body">
-                                        <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                                        <h6>{{ $review->customer->name }}<small> - <i>{{ $review->created_at->format('M-d-Y') }}</i></small></h6>
+
+                                        @php
+                                            $star = $review->rating;
+                                        @endphp
+
                                         <div class="text-primary mb-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <i class="far fa-star"></i>
+                                            @for ($i = 1 ; $i <= $star; $i++)
+                                            <i class="fa fa-star"></i>
+                                            @endfor
                                         </div>
-                                        <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                                        <p>{{ $review->review }}</p>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
 
                            <x-frontend.product-review :product="$product"/>
