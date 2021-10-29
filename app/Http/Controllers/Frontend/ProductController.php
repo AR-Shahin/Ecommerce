@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function categoryWiseProducts(Category $slug)
     {
         $data = [];
-        $data['products'] = $slug->products->paginate(3);
+        $data['products'] = $slug->products()->paginate(3);
         $data['colors'] = Color::with('products:color_id')->latest()->get(['name', 'slug', 'id']);
         $data['sizes'] = Size::with('products:size_id')->latest()->get(['name', 'slug', 'id']);
         return view('shop', $data);
