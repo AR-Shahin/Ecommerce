@@ -48,13 +48,18 @@
                 <h3>{{ $product->name }}</h3>
                 <div class="d-flex mb-3">
                     <div class="text-primary mr-2">
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star-half-alt"></small>
-                        <small class="far fa-star"></small>
+                        @php
+                            $star = calculateProductStar($product->reviews);
+                        @endphp
+
+                        @if($star)
+                            @for ($i = 1 ; $i <= $star; $i++)
+                            <i class="fa fa-star"></i>
+                            @endfor
+                        @endif
                     </div>
-                    <small class="pt-1">(99 Reviews)</small>
+
+                    <small class="pt-1">({{ count($product->reviews) }} Reviews)</small>
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">${{ $product->info->sell_price }}</h3>
                 <h5 class="">Quantity :
@@ -130,7 +135,7 @@
                 <div class="nav nav-tabs mb-4">
                     <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
                     <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Information</a>
-                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews ({{ count($product->reviews) }})</a>
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">
@@ -145,7 +150,7 @@
                     <div class="tab-pane fade" id="tab-pane-3">
                         <div class="row">
                             <div class="col-md-6">
-                                <h4 class="mb-4">1 review for "Product Name"</h4>
+                                <h4 class="mb-4">{{ count($product->reviews) }} review for "{{ $product->name }}"</h4>
                                 <div class="media mb-4">
                                     <img src="{{ asset('Frontend') }}/img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                     <div class="media-body">
