@@ -162,7 +162,7 @@
                                 </div>
                             </div>
 
-                           <x-frontend.product-review/>
+                           <x-frontend.product-review :product="$product"/>
                         </div>
                     </div>
                 </div>

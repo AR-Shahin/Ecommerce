@@ -4,16 +4,17 @@ namespace App\View\Components\frontend;
 
 use Illuminate\View\Component;
 
-class product-review extends Component
+class productReview extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public $product;
+    public function __construct($product)
     {
-        //
+        $this->product = $product;
     }
 
     /**

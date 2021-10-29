@@ -4,6 +4,7 @@
 <div class="col-md-6">
     <form method="post" action="{{ route('review') }}" id="reviewStorForm">
         @csrf
+        <input type="hidden" name="product_id" value="{{ $product->id }}">
     <h4 class="mb-4">Leave a review</h4>
     <small>Your email address will not be published. Required fields are marked *</small>
     <div class="d-flex">
@@ -25,22 +26,7 @@
                 <label for="message">Your Review *</label>
                 <textarea id="message" cols="30" rows="5" class="form-control" name="review"></textarea>
             </div>
-            <div class="form-group">
-                <label for="name">Your Name *</label>
-                <input type="name" class="form-control" id="name" name="name"
-                value="@if (auth('customer')->id())
-                    {{ auth('customer')->user()->name }}
-                @endif
-             " placeholder="Enter Your Name">
-            </div>
-            <div class="form-group">
-                <label for="email">Your Email *</label>
-                <input type="email" class="form-control" id="email" name="email" value="
-                @if (auth('customer')->id())
-                    {{ auth('customer')->user()->email }}
-                @endif
-             " placeholder="Enter Your Email">
-            </div>
+
             <div class="form-group mb-0">
                 <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
             </div>
@@ -67,12 +53,7 @@ $(function () {
 
 $('#reviewStorForm').validate({
         rules: {
-            name: {
-                required: true
-            },
-            email :{
-                required: true
-            },
+
             review :{
                 required: true
             },
