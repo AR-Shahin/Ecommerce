@@ -13,7 +13,8 @@ use App\Http\Controllers\Frontend\{
     ProductController,
     ReviewController,
     ShippingController,
-    ShopController
+    ShopController,
+    WishlistController
 };
 
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,8 @@ Route::get('/sub-category-product/{slug}', [ProductController::class, 'subCatego
 
 # Cart
 Route::post('cart/{product}', [CartController::class, 'addToCart'])->name('add-to-cart');
+
+
 Route::middleware('cart')->group(function () {
     Route::get('/cart', [CartController::class, 'viewCart'])->name('cart');
     Route::delete('/cart/{id}', [CartController::class, 'removeSingleItem'])->name('cart.remove_single');
@@ -66,6 +69,14 @@ Route::middleware('auth:customer')->group(function () {
 
     # Review
     Route::post('review', [ReviewController::class, 'store'])->name('review');
+
+    # Wishlist
+    Route::post('wishlist', [WishlistController::class, 'store'])->name('wishlist');
+    Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
+    Route::delete('wishlist/{wishlist}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+
+
+
     Route::get('/dashboard', function () {
         $navItem = 'dashboard';
         return view('Frontend.dashboard', compact('navItem'));

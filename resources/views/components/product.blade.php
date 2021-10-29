@@ -3,12 +3,16 @@
         <div class="product-img position-relative overflow-hidden">
             <img class="img-fluid w-100" src="{{ asset($product->info->image) }}" alt="">
             <div class="product-action">
-                    <form action="{{ route('add-to-cart',$product) }}" method="POST">
+                <form action="{{ route('add-to-cart',$product) }}" method="POST">
                         @csrf
                         <input type="hidden" value="1"  name="quantity">
                     <button type="submit" class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></button>
                 </form>
-                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                <form action="{{ route('wishlist',$product) }}" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{ $product->id }}"  name="product_id">
+                <button type="submit" class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></button>
+            </form>
                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
             </div>
