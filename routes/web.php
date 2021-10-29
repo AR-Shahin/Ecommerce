@@ -22,6 +22,10 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
 Route::get('product/{product}', [ProductController::class, 'singleProduct'])->name('single-product');
 Route::get('search-product/{query}', [ProductController::class, 'dynamicSearch'])->name('dynamic-search');
+Route::get('/category-product/{slug}', [ProductController::class, 'categoryWiseProducts'])->name('category-product');
+Route::get('/sub-category-product/{slug}', [ProductController::class, 'subCategoryWiseProducts'])->name('sub-category-product');
+
+
 # Cart
 Route::post('cart/{product}', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::middleware('cart')->group(function () {

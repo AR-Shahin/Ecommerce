@@ -24,4 +24,8 @@ class SubCategory extends Model
     {
         $this->attributes['slug'] = Str::slug($value);
     }
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'sub_cat_id');
+    }
 }

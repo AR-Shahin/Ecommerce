@@ -138,7 +138,9 @@
                     @endforeach
                 </div>
                 <div  style="width: 10%;margin:0 auto">
+
                     {{ $products->links('pagination::custom') }}
+
                   </div>
             </div>
             <!-- Shop Product End -->

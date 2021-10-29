@@ -138,13 +138,13 @@
                     <div class="navbar-nav w-100">
                         @foreach ($categories as $category)
                         <div class="nav-item dropdown dropright">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ $category->name }} @if (count($category->children) != 0) <i class="fa fa-angle-right float-right mt-1"></i>
+                            <a href="{{ route('category-product',$category->slug) }}" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ $category->name }} @if (count($category->children) != 0) <i class="fa fa-angle-right float-right mt-1"></i>
                                 @endif
                             </a>
                             @if (count($category->children) != 0)
                             <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
                                 @foreach ($category->children as $child)
-                                <a href="" class="dropdown-item">{{ $child->name }}</a>
+                                <a href="{{ route('sub-category-product',$child->slug) }}" class="dropdown-item">{{ $child->name }}</a>
                                 @endforeach
                             </div>
                             @endif
