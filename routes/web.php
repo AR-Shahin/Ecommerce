@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\{
     HomeController,
     OrderController,
     ProductController,
+    ReviewController,
     ShippingController,
     ShopController
 };
@@ -64,13 +65,15 @@ Route::middleware('auth:customer')->group(function () {
     })->name('dashboard');
 });
 
+# Review
+
+Route::post('review', [ReviewController::class, 'store'])->name('review');
+
+
+
 
 Route::get('test', function () {
     return view('Frontend.cart.shipping');
 });
-
-
-
-
 require __DIR__ . '/admin_auth.php';
 require __DIR__ . '/admin.php';

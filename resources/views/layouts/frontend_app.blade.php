@@ -273,7 +273,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('Frontend') }}/lib/easing/easing.min.js"></script>
     <script src="{{ asset('Frontend') }}/lib/owlcarousel/owl.carousel.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <!-- Contact Javascript File -->
     {{-- <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script> --}}
