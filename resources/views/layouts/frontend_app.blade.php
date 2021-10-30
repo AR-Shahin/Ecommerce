@@ -43,7 +43,7 @@
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center h-100">
                     <a class="text-body mr-3" href="">About</a>
-                    <a class="text-body mr-3" href="">Contact</a>
+                    <a class="text-body mr-3" href="{{ route('contact') }}">Contact</a>
                     <a class="text-body mr-3" href="">Help</a>
                     <a class="text-body mr-3" href="">FAQs</a>
                 </div>
@@ -176,7 +176,7 @@
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
                                 </div>
                             </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="" class="btn px-0">

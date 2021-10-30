@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\Auth\{
 };
 use App\Http\Controllers\Frontend\{
     CartController,
+    ContactController,
     CouponController,
     HomeController,
     OrderController,
@@ -75,16 +76,15 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
     Route::delete('wishlist/{wishlist}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
-
-
     Route::get('/dashboard', function () {
         $navItem = 'dashboard';
         return view('Frontend.dashboard', compact('navItem'));
     })->name('dashboard');
 });
 
-
-
+# Contact
+Route::get('contact', [ContactController::class, 'index'])->name('contact');
+Route::post('contact', [ContactController::class, 'store'])->name('contact');
 
 
 
