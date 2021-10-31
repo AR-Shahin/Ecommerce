@@ -25,6 +25,16 @@ class Product extends Model
     {
         return $query->where('category_id', $id);
     }
+    public function scopeSorting($query, $option)
+    {
+        if ($option === 'latest') {
+            return $query->latest();
+        }
+        if ($option === 'older') {
+            return $query->oldest();
+        }
+        // dd($query);
+    }
     public function info()
     {
         return $this->hasOne(ProductInfo::class, 'product_id');
@@ -55,4 +65,9 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    // public function popularProducts()
+    // {
+    //     return $this->hasOne(Review::class, 'product_id')->ofMany('rating', 'max');
+    // }
 }

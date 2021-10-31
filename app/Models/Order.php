@@ -17,7 +17,8 @@ class Order extends Model
 
     function scopeMyOrders($query)
     {
-        return $query->where('customer_id', auth('customer')->id());
+        //return $query->where('customer_id', auth('customer')->id());
+        return $query->whereBelongsTo(auth('customer')->user());
     }
 
     function scopePending($query)

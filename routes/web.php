@@ -23,6 +23,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
+
+# Sorting
+Route::get('sorting/{query}', [ShopController::class, 'sortingProduct'])->name('sorting');
+
+
 Route::get('product/{product}', [ProductController::class, 'singleProduct'])->name('single-product');
 Route::get('search-product/{query}', [ProductController::class, 'dynamicSearch'])->name('dynamic-search');
 Route::get('/category-product/{slug}', [ProductController::class, 'categoryWiseProducts'])->name('category-product');
