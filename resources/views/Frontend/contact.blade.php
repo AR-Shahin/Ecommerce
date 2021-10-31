@@ -2,7 +2,9 @@
 @section('title','Contact')
 
 @section('app_content')
-
+{{-- @php
+    dd(8);
+@endphp --}}
  <!-- Breadcrumb Start -->
  <div class="container-fluid">
     <div class="row px-xl-5">
@@ -29,22 +31,34 @@
                     <div class="control-group">
                         <input type="text" class="form-control" id="name" placeholder="Your Name"
                             required="required" data-validation-required-message="Please enter your name" name="name" />
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
                         <input type="email" class="form-control" id="email" placeholder="Your Email"
                             required="required" data-validation-required-message="Please enter your email" name="email"/>
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
                         <input type="text" class="form-control" id="subject" placeholder="Subject"
                             required="required" data-validation-required-message="Please enter a subject" name="subject"/>
+                            @error('subject')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
                         <textarea class="form-control" rows="8" id="message" placeholder="Message"
                             required="required" name="text"
                             data-validation-required-message="Please enter your message"></textarea>
+                            @error('text')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         <p class="help-block text-danger"></p>
                     </div>
                     <div>
@@ -61,9 +75,9 @@
                 frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
             </div>
             <div class="bg-light p-30 mb-3">
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>w</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>w</p>
+                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>w</p>
             </div>
         </div>
     </div>
