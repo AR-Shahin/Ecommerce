@@ -13,7 +13,11 @@
                     <input type="hidden" value="{{ $product->id }}"  name="product_id">
                 <button type="submit" class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></button>
             </form>
-                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+            <form action="{{ route('compare',$product) }}" method="POST">
+                @csrf
+                <input type="hidden" value="{{ $product->id }}"  name="product_id">
+            <button type="submit" class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></button>
+        </form>
                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
             </div>
         </div>

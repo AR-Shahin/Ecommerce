@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\Auth\{
 };
 use App\Http\Controllers\Frontend\{
     CartController,
+    CompareController,
     ContactController,
     CouponController,
     HomeController,
@@ -76,6 +77,10 @@ Route::middleware('auth:customer')->group(function () {
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
     Route::delete('wishlist/{wishlist}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
+    # compare
+    Route::post('compare', [CompareController::class, 'store'])->name('compare');
+    Route::get('compare', [CompareController::class, 'index'])->name('compare');
+    Route::delete('compare/{compare}', [CompareController::class, 'destroy'])->name('compare.destroy');
     Route::get('/dashboard', function () {
         $navItem = 'dashboard';
         return view('Frontend.dashboard', compact('navItem'));

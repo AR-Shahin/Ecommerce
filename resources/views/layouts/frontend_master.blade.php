@@ -11,6 +11,7 @@
                 <li class="list-group-item @if ($navItem === 'orders') active @endif"><a href="{{ route('orders') }}" class="text-dark">Orders</a></li>
                 <li class="list-group-item "><a href="" class="text-dark">Coments</a></li>
                 <li class="list-group-item @if ($navItem === 'wishlist') active @endif"><a href="{{ route('wishlist') }}" class="text-dark">Wishlist</a></li>
+                <li class="list-group-item @if ($navItem === 'compare') active @endif"><a href="{{ route('compare') }}" class="text-dark">Compare</a></li>
                 <li class="list-group-item "><a href="" class="text-dark">Setting</a></li>
                 <li class="list-group-item ">
                     <form action="{{ route('logout') }}" class="d-inline" method="POST">
