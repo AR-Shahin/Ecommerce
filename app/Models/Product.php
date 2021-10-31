@@ -33,7 +33,14 @@ class Product extends Model
         if ($option === 'older') {
             return $query->oldest();
         }
-        // dd($query);
+        if ($option === 'popularity') {
+
+            return $query->whereHas('reviews')->latest();
+        }
+        if ($option === 'best_selling') {
+
+            return $query->whereHas('orders')->latest();
+        }
     }
     public function info()
     {
@@ -65,7 +72,10 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
-
+    public function orders(): HasMany
+    {
+        return $this->hasMany(OrderDetail::class, 'product_id');
+    }
     // public function popularProducts()
     // {
     //     return $this->hasOne(Review::class, 'product_id')->ofMany('rating', 'max');

@@ -12,7 +12,8 @@ class ShopController extends Controller
 {
     public function shop(Request $request)
     {
-        // return $data['products'] = Product::withOnly('popularProducts')->latest()->paginate(9);
+
+        //return   Product::with('orders')->get();
         $data['colors'] = Color::with('products:color_id')->latest()->get(['name', 'slug', 'id']);
         $data['sizes'] = Size::with('products:size_id')->latest()->get(['name', 'slug', 'id']);
 

@@ -17,6 +17,9 @@
                         <option value="oldest" @if ($query === 'oldest')
                         selected
                         @endif>Oldest</option>
+                        <option value="most_view"  @if ($query === 'most_view')
+                        selected
+                        @endif>Most View</option>
                         <option value="popularity" @if ($query === 'popularity')
                         selected
                         @endif>Popularity</option>
