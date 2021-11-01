@@ -124,7 +124,7 @@
     <div class="container-fluid pt-2 pb-3">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Best Selling</span></h2>
         <div class="row px-xl-5">
-            @foreach ($featured_products as $product)
+            @foreach ($best_selling_products as $product)
                 <x-product :product="$product"/>
             @endforeach
 

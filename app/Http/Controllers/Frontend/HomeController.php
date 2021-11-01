@@ -19,6 +19,7 @@ class HomeController extends Controller
         $data['categories'] = Category::with('products')->latest()->get();
         $data['latest_products'] = Product::withOnly('info')->latest()->take(8)->get();
         $data['featured_products'] = Product::withOnly('info')->isFeatured()->latest()->take(8)->get();
+        $data['best_selling_products'] = Product::withOnly('info')->bestSelling()->latest()->take(8)->get();
         return view('home', $data);
     }
 }
