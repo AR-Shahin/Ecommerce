@@ -80,9 +80,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($product)
     {
-        // return $product;
+        $product = Product::withoutGlobalScope('isActive')->whereSlug($product)->first();
         return view('Backend.Product.show', compact('product'));
     }
 
@@ -115,9 +115,24 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($product)
     {
-        //
+        $product = Product::withoutGlobalScope('isActive')->whereSlug($product)->first();
+        $image = $product->info->image;
+        $sliderImages = [];
+        foreach ($product->sliders as $image) {
+            $sliderImages[] = $image->image;
+        }
+
+        $product->delete();
+        File::deleteFile($image);
+        foreach ($sliderImages as $image) {
+            File::deleteFile($image);
+        }
+
+
+        session()->flash('success', 'Product Deleted Successfully!');
+        return back();
     }
 
 
