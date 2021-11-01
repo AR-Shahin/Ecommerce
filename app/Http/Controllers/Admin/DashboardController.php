@@ -14,6 +14,7 @@ class DashboardController extends Controller
     public function index()
     {
         $data = [];
+        $data['navItem'] = 'dashboard';
         $data['products'] = Product::withoutGlobalScope('isActive')->count();
         $data['product_price'] = ProductInfo::sum('price');
         $data['coupons'] = Coupon::count();

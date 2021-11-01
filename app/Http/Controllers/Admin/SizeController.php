@@ -21,7 +21,7 @@ class SizeController extends Controller
     public function index()
     {
         $sizes = Size::latest()->get();
-        return view('Backend.Size.index', compact('sizes'));
+        return view('Backend.Size.index', ['navItem' => 'slider'], compact('sizes'));
     }
 
 

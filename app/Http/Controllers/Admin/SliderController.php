@@ -12,7 +12,7 @@ class SliderController extends Controller
 {
     function index()
     {
-        return view('Backend.Slider.index');
+        return view('Backend.Slider.index', ['navItem' => 'slider']);
     }
 
     function fetchSlider()

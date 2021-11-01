@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::latest()->get();
-        return view('Backend.order.index', compact('orders'));
+        return view('Backend.order.index', ['navItem' => 'order'], compact('orders'));
     }
 
     function makeOrderOnGoing(Order $id)
@@ -36,7 +36,7 @@ class OrderController extends Controller
     {
         $order = $id->load(['shipping', 'payment', 'products', 'customer']);
 
-        return view('Backend.order.details', compact('order'));
+        return view('Backend.order.details', ['navItem' => 'order'], compact('order'));
     }
 
     public function orderDetailsPdf(Order $id)
@@ -49,16 +49,16 @@ class OrderController extends Controller
     public function pendingOrder()
     {
         $orders = Order::pending()->get();
-        return view('Backend.order.pending', compact('orders'));
+        return view('Backend.order.pending', ['navItem' => 'order'], compact('orders'));
     }
     public function onGoingOrder()
     {
         $orders = Order::onGoing()->get();
-        return view('Backend.order.ongoing', compact('orders'));
+        return view('Backend.order.ongoing', ['navItem' => 'order'], compact('orders'));
     }
     public function receivedOrder()
     {
         $orders = Order::received()->get();
-        return view('Backend.order.received', compact('orders'));
+        return view('Backend.order.received', ['navItem' => 'order'], compact('orders'));
     }
 }

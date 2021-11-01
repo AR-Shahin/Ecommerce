@@ -20,7 +20,7 @@ class ColorController extends Controller
      */
     public function index()
     {
-        return view('Backend.Color.index');
+        return view('Backend.Color.index', ['navItem' => 'color']);
     }
 
 

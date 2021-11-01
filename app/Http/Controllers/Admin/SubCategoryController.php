@@ -22,7 +22,7 @@ class SubCategoryController extends Controller
     public function index()
     {
         $categories = Category::latest()->get();
-        return view('Backend.SubCat.index', compact('categories'));
+        return view('Backend.SubCat.index', ['navItem' => 'sub_cat'], compact('categories'));
     }
 
 

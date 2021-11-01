@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::withoutGlobalScope('isActive')->withOnly(['info', 'category'])->latest()->get();
-        return view('Backend.Product.index', compact('products'));
+        return view('Backend.Product.index', ['navItem' => 'product'], compact('products'));
     }
 
     /**
@@ -34,7 +34,7 @@ class ProductController extends Controller
         $categories = Category::latest()->get(['name', 'id']);
         $colors = Color::latest()->get(['name', 'id']);
         $sizes = Size::latest()->get(['name', 'id']);
-        return view('Backend.Product.create', compact('categories', 'colors', 'sizes'));
+        return view('Backend.Product.create', ['navItem' => 'product'], compact('categories', 'colors', 'sizes'));
     }
 
     /**
@@ -83,7 +83,7 @@ class ProductController extends Controller
     public function show($product)
     {
         $product = Product::withoutGlobalScope('isActive')->whereSlug($product)->first();
-        return view('Backend.Product.show', compact('product'));
+        return view('Backend.Product.show', ['navItem' => 'product'], compact('product'));
     }
 
     /**

@@ -13,7 +13,7 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    @includeIf('Backend.includes.sidebar')
+    @includeIf('Backend.includes.sidebar',['navItem' => $navItem])
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

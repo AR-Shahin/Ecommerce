@@ -11,7 +11,7 @@ class CouponController extends Controller
 {
     function index()
     {
-        return view('Backend.Coupon.index');
+        return view('Backend.Coupon.index', ['navItem' => 'coupon']);
     }
 
     function fetchCoupon()

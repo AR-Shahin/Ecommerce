@@ -12,7 +12,7 @@ class WebsiteController extends Controller
     public function index()
     {
         $website = Website::first();
-        return view('Backend.website.index', compact('website'));
+        return view('Backend.website.index', ['navItem' => 'website'], compact('website'));
     }
 
 

@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     function index()
     {
-        return view('Backend.Category.index');
+        return view('Backend.Category.index', ['navItem' => 'category']);
     }
 
     function fetchCategory()
