@@ -13,8 +13,8 @@ class ShopController extends Controller
 {
     public function shop(Request $request)
     {
-        $data['prices'] =  ProductInfo::select('sell_price')->groupBy('sell_price')->get();
-        $data['prices']  = $this->getValuesFromObject($data['prices']);
+        // $data['prices'] =  ProductInfo::select('sell_price')->groupBy('sell_price')->get();
+        // $data['prices']  = $this->getValuesFromObject($data['prices']);
         $data['colors'] = Color::with('products:color_id')->latest()->get(['name', 'slug', 'id']);
         $data['sizes'] = Size::with('products:size_id')->latest()->get(['name', 'slug', 'id']);
 

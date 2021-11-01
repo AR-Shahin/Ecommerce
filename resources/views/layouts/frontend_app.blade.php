@@ -175,10 +175,13 @@
                             <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="" class="btn px-0">
+
+                            @auth('customer')
+                            <a href="{{ route('wishlist') }}" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">{{ auth('customer')->user()->wishlists->count() }}</span>
                             </a>
+                            @endauth
                             <a href="{{ route('cart') }}" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">{{ Cart::count() }}</span>

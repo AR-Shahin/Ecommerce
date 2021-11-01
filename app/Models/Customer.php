@@ -58,4 +58,8 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(Order::class, 'customer_id');
     }
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class, 'customer_id');
+    }
 }
