@@ -13,13 +13,12 @@ class HomeController extends Controller
 {
     public function home()
     {
+        //  return Product::isActive()->get()->count();
         $data = [];
         $data['sliders'] = Slider::latest()->get();
         $data['categories'] = Category::with('products')->latest()->get();
         $data['latest_products'] = Product::withOnly('info')->latest()->take(8)->get();
-        $data['featured_products'] = Product::withOnly('info')->whereHas('info', function ($query) {
-            $query->isFeatured();
-        })->latest()->take(8)->get();
+        $data['featured_products'] = Product::withOnly('info')->isFeatured()->latest()->take(8)->get();
         return view('home', $data);
     }
 }

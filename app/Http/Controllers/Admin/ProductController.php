@@ -20,7 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::withOnly(['info', 'category'])->latest()->get();
+        $products = Product::withoutGlobalScope('isActive')->withOnly(['info', 'category'])->latest()->get();
         return view('Backend.Product.index', compact('products'));
     }
 

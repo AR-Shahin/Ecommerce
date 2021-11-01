@@ -14,4 +14,8 @@ class ProductInfo extends Model
     {
         return $query->whereIsFeatured(true);
     }
+    public function scopeIsActive($query)
+    {
+        return $query->whereIsActive(true);
+    }
 }

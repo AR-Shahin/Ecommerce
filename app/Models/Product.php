@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
+use App\Services\Models\Scopes\ProductScope;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, ProductScope;
     protected $guarded = [];
     protected $with = ['color', 'size', 'category', 'sub_category', 'info', 'sliders'];
     public function getRouteKeyName()
@@ -20,7 +23,6 @@ class Product extends Model
     {
         $this->attributes['slug'] = Str::slug($value);
     }
-
     public function scopeSimilar($query, $id)
     {
         return $query->where('category_id', $id);
@@ -39,9 +41,36 @@ class Product extends Model
         }
         if ($option === 'best_selling') {
 
-            return $query->whereHas('orders')->latest();
+            return $query->BestSelling();
         }
     }
+
+    function scopeIsActive($query)
+    {
+        return $query->whereHas('info', function ($query) {
+            $query->isActive();
+        });
+    }
+    function scopeIsFeatured($query)
+    {
+        return $query->whereHas('info', function ($query) {
+            $query->isFeatured();
+        });
+    }
+    function scopeBestSelling($query)
+    {
+        return $query->whereHas('orders')->latest();
+    }
+
+    public static function booted()
+    {
+        static::addGlobalScope('isActive', function (Builder $builder) {
+            $builder->whereHas('info', function ($query) {
+                $query->isActive();
+            });
+        });
+    }
+
     public function info()
     {
         return $this->hasOne(ProductInfo::class, 'product_id');
