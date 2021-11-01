@@ -110,13 +110,15 @@
             <tr>
                 <td>${++index}</td>
                 <td>${item.title}</td>
-                <td>${item.status}</td>
+                <td>${item.status == 1 ? 'Active' : 'Inactive'}</td>
                 <td><img src="{{ asset('${item.image}') }}" width="80px"></td>
 
                 <td class="text-center">
                     <a href="" class="btn btn-sm btn-success" data-id="${item.id}" data-toggle="modal" data-target="#viewModal" id="viewRow"><i class="fa fa-eye"></i></a>
                     <a href="" class="btn btn-sm btn-info" data-id="${item.id}" data-toggle="modal" data-target="#editModal" id="editRow"><i class="fa fa-edit"></i></a>
                     <a href="" id="deleteRow" class="btn btn-sm btn-danger" data-id="${item.id}"><i class="fa fa-trash-alt"></i></a>
+                    ${item.status === 0 ? `<a href="" id="activeRow" class="btn btn-sm btn-success" data-id="${item.id}"><i class="fas fa-arrow-circle-up"></i></a>` : `<a href="" id="inactiveRow" class="btn btn-sm btn-warning" data-id="${item.id}"><i class="fas fa-arrow-circle-down"></i></a>`}
+
                 </td>
             </tr>
             `
@@ -300,6 +302,22 @@ $('body').on('click','#viewRow',function(){
     });
 })
 
+// inActive
+$('body').on('click','#inactiveRow',async function(e){
+    e.preventDefault();
+    let id = $(this).data('id');
+    await axios.put(`${base_url_admin}/slider-inactive/${id}`);
+    getAllSlider();
+    setSuccessMessage('Slider Inactive Successfully!')
+})
 
+// ctive
+$('body').on('click','#activeRow',async function(e){
+    e.preventDefault();
+    let id = $(this).data('id');
+    await axios.put(`${base_url_admin}/slider-active/${id}`);
+    getAllSlider();
+    setSuccessMessage('Slider Active Successfully!')
+})
 </script>
 @endpush

@@ -72,4 +72,17 @@ class SliderController extends Controller
             return false;
         }
     }
+
+    public function inActiveSlider(Slider $slider)
+    {
+        $slider->update([
+            'status' => false
+        ]);
+    }
+    public function activeSlider(Slider $slider)
+    {
+        $slider->update([
+            'status' => true
+        ]);
+    }
 }
