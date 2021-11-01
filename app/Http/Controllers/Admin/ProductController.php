@@ -82,6 +82,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        // return $product;
         return view('Backend.Product.show', compact('product'));
     }
 
@@ -123,5 +124,24 @@ class ProductController extends Controller
     public function getSubCategoryByCategory($category_id)
     {
         return SubCategory::whereCategoryId($category_id)->get();
+    }
+
+    public function productActive($slug)
+    {
+
+        $product = Product::withoutGlobalScope('isActive')->whereSlug($slug)->first();
+        $product->info->update(['is_active' => true]);
+
+        session()->flash('success', 'Product Active!');
+        return back();
+    }
+    public function productInActive($slug)
+    {
+
+        $product =  Product::withoutGlobalScope('isActive')->whereSlug($slug)->first();
+
+        $product->info->update(['is_active' => false]);
+        session()->flash('success', 'Product Inactive!');
+        return back();
     }
 }

@@ -35,6 +35,10 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 
     Route::resource('product', ProductController::class);
     Route::get('get-sub-category-by-category/{id}', [ProductController::class, 'getSubCategoryByCategory'])->name('get-sub-cat-by-cat');
+    Route::put('product-inactive/{slug}', [ProductController::class, 'productInActive'])->name('product.inactive');
+    Route::put('product-active/{slug}', [ProductController::class, 'productActive'])->name('product.active');
+
+
 
     Route::resource('slider', SliderController::class)->except(['create', 'edit']);
     Route::get('fetch-slider', [SliderController::class, 'fetchSlider'])->name('fetch-slider');

@@ -34,10 +34,24 @@
                         <td>{{ $product->category->name }}</td>
                         <td>{{ $product->info->view }}</td>
                         <td>{{ $product->quantity }}</td>
-                        <td>{{ $product->info->status == 1 ? 'Active' : 'Inactive' }}</td>
+                        <td> {{ $product->info->status == 1 ? 'Active' : 'Inactive' }}</td>
                         <td>
-                            <a href="" id="status" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></a>
-                            <a href="" class="btn btn-sm btn-warning"><i class="fa fa-arrow-down"></i></a>
+
+                            @if ($product->info->is_active === 0)
+                            <form action="{{ route('admin.product.active',$product->slug) }}" class="d-inline" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <button id="status" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></button>
+                            </form>
+                            @else
+                            <form action="{{ route('admin.product.inactive',$product->slug) }}" class="d-inline" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <button class="btn btn-sm btn-warning"><i class="fa fa-arrow-down"></i></button>
+                            </form>
+                            @endif
+
+
                             <a href="{{ route('admin.product.show',$product->slug) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
                             <a href="{{ route('admin.product.edit', $product->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
 
