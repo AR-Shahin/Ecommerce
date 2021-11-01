@@ -41,10 +41,10 @@ class WebsiteController extends Controller
             'tw' => $request->tw,
             'ins' => $request->ins,
             'link' => $request->link,
-            // 'footer_1' => $request->footer_1,
-            // 'footer_2' => $request->footer_2
+            'footer_1' => $request->footer_1,
+            'footer_2' => $request->footer_2
         ]);
-        // $this->notificationMessage('Data Update Successfully!');
+        session()->flash('success', 'Data Update Successfully!!');
         return redirect()->route('admin.website.index');
     }
 }

@@ -23,6 +23,8 @@ class CreateWebsitesTable extends Migration
             $table->string('tw');
             $table->string('link');
             $table->string('ins');
+            $table->string('footer_1');
+            $table->string('footer_2');
             $table->timestamps();
         });
     }

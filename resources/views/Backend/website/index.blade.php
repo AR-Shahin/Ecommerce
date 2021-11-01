@@ -62,10 +62,20 @@
                 <tr>
                     <th>Fists Footer :</th>
                     <td>{{ $website->footer_1 }}</td>
+                    <td>
+                        <textarea class="form-control" name="footer_1" id="" cols="10" rows="5">
+                            {{ $website->footer_1 }}
+                        </textarea>
+                    </td>
                 </tr>
                 <tr>
                     <th>Second Footer :</th>
                     <td>{{ $website->footer_2 }}</td>
+                    <td>
+                        <textarea class="form-control" name="footer_2" id="" cols="10" rows="5">
+                            {{ $website->footer_2 }}
+                        </textarea>
+                    </td>
                 </tr>
             </table>
         </div>
