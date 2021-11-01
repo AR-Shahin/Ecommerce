@@ -289,8 +289,12 @@
     @stack('script')
     <script>
          let searchInput = document.querySelector('#searchInput');
+         let searchData = document.querySelector('#searchData > ul');
         searchInput.addEventListener('keyup',async function(e) {
             let query = e.target.value;
+            if(!query){
+                searchData.innerHTML= '';
+            }
             let url = `${window.location.origin}/search-product/${query}`;
             if(searchInput.value){
                 const {data} = await axios.get(url)
@@ -298,7 +302,7 @@
             }
         })
         const showProductData = (products) => {
-            let searchData = document.querySelector('#searchData > ul');
+
             let li ;
             if(Object.keys(products).length === 0) {
                 li = `<li style="list-style:none;text-align:center;background:#ccc" class="p-2 text-danger">No product Found!!</li>`;
