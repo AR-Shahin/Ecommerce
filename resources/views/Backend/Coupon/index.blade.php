@@ -204,18 +204,18 @@ $('body').on('click','#editRow',function(){
         let form = $$('#editForm');
         form.innerHTML = `<div class="form-group">
                 <label for="">Coupon Name</label>
-                <input type="text" class="form-control" id="edit_name" value="${data.name}">
+                <input type="text" class="form-control" id="edit_name" value="${data.name}" name="name">
                 <input type="hidden" id="edit_cat_id" value="${data.id}">
                 <span class="text-danger" id="catEditError"></span>
             </div>
             <div class="form-group">
                         <label for="">Discount</label>
-                        <input type="number" class="form-control" id="discount" name="discount" placeholder="Enter discount in % (ex:5%)" value="${data.discount}">
+                        <input type="number" class="form-control" id="edit_discount" name="discount" placeholder="Enter discount in % (ex:5%)" value="${data.discount}">
                         <span class="text-danger" id="discountEditError"></span>
                     </div>
                     <div class="form-group">
                         <label for="">Expired Date</label>
-                        <input type="date" class="form-control" id="expired_date"  name="expired_date" value="${data.expired_date}">
+                        <input type="date" class="form-control" id="edit_expired_date"  name="expired_date" value="${data.expired_date}">
                         <span class="text-danger" id="dateEditError"></span>
                     </div>
             <div class="form-group">
@@ -232,13 +232,17 @@ $('body').on('submit','#editForm',async function(e){
     let id = $('#edit_cat_id').val();
     let url = `${base_url_admin}/coupon/${id}`;
     let name = $('#edit_name').val();
-    let discount = $('#discount').val();
-    let expired_date = $('#expired_date').val();
-
-    let dateEditError = $('#dateEditError')
-    let catEditError = $('#catEditError')
+    let discount = $('#edit_discount').val();
+    let expired_date = $('#edit_expired_date').val();
+    const data = {name,discount,expired_date};
+    let dateEditError = $('#dateEditError');
+    let catEditError = $('#catEditError');
     try{
-        const response = await axios.put(url)
+        const response = await axios.put(url,data);
+        setSuccessMessage('Data Update Successfully!');
+        getAllCoupon()
+        $('#editModal').modal('toggle');
+
     }catch(err){
         if(err.response.data.errors.name){
             catEditError.text(err.response.data.errors.name[0])
