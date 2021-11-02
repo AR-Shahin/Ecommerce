@@ -18,7 +18,7 @@
                     <th>Category</th>
                     <td>{{ $product->category->name }}</td>
                     <th>Sub Category</th>
-                    <td>{{ $product->sub_category->name }}</td>
+                    <td>{{ $product->sub_category->name ?? 'NULL'}}</td>
                 </tr>
                 <tr>
                     <th>Color</th>

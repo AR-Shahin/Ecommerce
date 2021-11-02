@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\{
     OrderController,
     ProductController,
     ReviewController,
+    SettingsController,
     ShippingController,
     ShopController,
     WishlistController
@@ -87,6 +88,10 @@ Route::middleware('auth:customer')->group(function () {
     Route::post('compare', [CompareController::class, 'store'])->name('compare');
     Route::get('compare', [CompareController::class, 'index'])->name('compare');
     Route::delete('compare/{compare}', [CompareController::class, 'destroy'])->name('compare.destroy');
+
+    # Settings
+    Route::get('settings', [SettingsController::class, 'index'])->name('settings');
+    Route::post('settings', [SettingsController::class, 'updateInformation'])->name('settings');
     Route::get('/dashboard', function () {
         $navItem = 'dashboard';
         return view('Frontend.dashboard', compact('navItem'));
