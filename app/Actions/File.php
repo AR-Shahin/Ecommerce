@@ -21,4 +21,13 @@ class File
             unlink($file);
         }
     }
+
+    public static function uploadPdf($file, $path)
+    {
+        info($file);
+        $fileName = time() . '_' . uniqid() . '.' . 'pdf';
+        Storage::putFileAs("public/$path", $file, $fileName);
+
+        return "storage/$path/" . $fileName;
+    }
 }

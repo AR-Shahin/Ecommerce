@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ShippingRequest;
+use App\Actions\File;
 use App\Models\Order;
-use App\Models\OrderDetail;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Shipping;
+use App\Models\OrderDetail;
+use Illuminate\Http\Request;
+use App\Mail\CustomerOrderMail;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ShippingRequest;
+use Illuminate\Support\Facades\Storage;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class ShippingController extends Controller
 {
@@ -78,6 +83,10 @@ class ShippingController extends Controller
             session()->forget('coupon');
         });
         if ($this->order) {
+
+
+            Mail::to(auth('customer')->user()->email)->send(new CustomerOrderMail($this->order));;
+
             session()->flash('success', 'Accept Your Order');
             return redirect()->route('dashboard');
         }

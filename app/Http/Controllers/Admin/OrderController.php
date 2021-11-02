@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Actions\File;
 use App\Models\Order;
+use function Psy\info;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Support\Facades\Storage;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class OrderController extends Controller
@@ -43,6 +47,10 @@ class OrderController extends Controller
     {
         $order = $id->load(['shipping', 'payment', 'products', 'customer']);
         $pdf = PDF::loadView('pdf.order_details', compact('order'));
+
+
+        //    Storage::put('public/pdf/invoice.pdf', $pdf->output());
+
         return $pdf->download("{$order->unique_id}.pdf");
     }
 

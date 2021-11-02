@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\{
 };
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
@@ -99,6 +100,8 @@ Route::post('contact', [ContactController::class, 'store'])->name('contact');
 
 
 Route::get('test', function () {
+
+    return Storage::get('public/pdf/23.pdf');
     return view('Frontend.cart.shipping');
 });
 require __DIR__ . '/admin_auth.php';
