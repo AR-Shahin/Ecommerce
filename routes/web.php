@@ -92,6 +92,10 @@ Route::middleware('auth:customer')->group(function () {
     # Settings
     Route::get('settings', [SettingsController::class, 'index'])->name('settings');
     Route::post('settings', [SettingsController::class, 'updateInformation'])->name('settings');
+    Route::get('password', [SettingsController::class, 'password'])->name('password');
+    Route::post('password', [SettingsController::class, 'updatePassword'])->name('password');
+
+
     Route::get('/dashboard', function () {
         $navItem = 'dashboard';
         return view('Frontend.dashboard', compact('navItem'));

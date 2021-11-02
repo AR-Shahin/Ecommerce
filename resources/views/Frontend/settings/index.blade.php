@@ -4,7 +4,7 @@
 @section('frontend_master_content')
 <div class="d-flex justify-content-between">
     <h4>Update your Informations</h4>
-    <a href="" class="btn btn-sm btn-info">Update Password</a>
+    <a href="{{ route('password') }}" class="btn btn-sm btn-info">Update Password</a>
 </div>
 <hr>
 <form action="{{ route('settings') }}" method="POST">
