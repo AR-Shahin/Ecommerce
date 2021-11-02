@@ -39,13 +39,13 @@
                         <td class="text-center">
                             <a href="{{ route('admin.order_details',$order->unique_id) }}" class="btn btn-sm rounded btn-success"><i class="fa fa-eye"></i></a>
 
-                            @if ($order->status === 'ongoing')
-                            <form action="{{ route('admin.orders_received',$order->unique_id) }}" class="d-inline" method="POST">
+
+                            <form action="{{ route('admin.orders_on_going',$order->unique_id) }}" class="d-inline" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <button class="btn btn-sm rounded btn-success">Received</button>
+                                <button class="btn btn-sm rounded btn-success">On Going</button>
                             </form>
-                            @endif
+
                             <a href="" class="btn btn-sm rounded btn-danger"><i class="fa fa-trash"></i></a>
                             <a target="_blank" href="{{ route('admin.order_details_pdf',$order->unique_id) }}" class="btn btn-sm rounded btn-info"><i class="fa fa-print"></i></a>
                         </td>
