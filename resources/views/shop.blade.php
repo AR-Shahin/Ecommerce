@@ -72,9 +72,9 @@
             </div>
             <!-- Shop Sidebar End -->
 
-
             <!-- Shop Product Start -->
             <div class="col-lg-9 col-md-8">
+                @if (count($products) != 0)
                 <div class="row pb-3">
                     <x-frontend.sorting/>
                     @foreach ($products as $product)
@@ -84,6 +84,10 @@
                 <div  style="width: 10%;margin:0 auto">
 
                     {{ $products->links('pagination::custom') }}
+
+                    @else
+                    <h4 class="text-center text-danger mt-5">Product Not found!!</h4>
+                @endif
 
                   </div>
             </div>
