@@ -55,7 +55,7 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             @auth('customer')
                                 <a class="dropdown-item" type="button" href="{{ route('dashboard') }}" >Dashboard</a>
-                                <form action="{{ route('logout') }}" class="d-inline" method="product">
+                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                     @csrf
                                     <button class="btn btn-success btn-block">Logout</button>
                                 </form>
