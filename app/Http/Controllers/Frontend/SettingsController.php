@@ -25,7 +25,7 @@ class SettingsController extends Controller
         $request->validate([
             'name' => ['required'],
             'email' => ['required'],
-            'phone' => ['numeric'],
+            'phone' => ['numeric', 'nullable'],
         ]);
         auth('customer')->user()->update($request->all());
         session()->flash('success', 'Profile Updated');

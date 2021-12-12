@@ -33,6 +33,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for=""><b>Date of Birh : </b></label>
+                            <input type="date" class="form-control" name="date_of_birth" placeholder="date_of_birth">
+                            @error('date_of_birth')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for=""><b>Password : </b></label>
                             <input type="password" class="form-control" name="password" placeholder="password">
                             @error('password')

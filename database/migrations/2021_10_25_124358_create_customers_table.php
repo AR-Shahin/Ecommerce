@@ -24,6 +24,7 @@ class CreateCustomersTable extends Migration
             $table->string('region')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

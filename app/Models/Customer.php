@@ -36,6 +36,7 @@ class Customer extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'date_of_birth' => 'datetime:d/m/Y'
     ];
 
     // public function sendPasswordResetNotification($token)

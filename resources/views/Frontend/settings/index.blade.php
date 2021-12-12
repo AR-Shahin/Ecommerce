@@ -23,8 +23,18 @@
        <div class="col-md-4">
         <div class="form-group">
             <label for="">Email : </label>
-            <input type="text" class="form-control" value="{{ auth('customer')->user()->email }}" name="email" readonly>
+            <input type="text" class="form-control" value="{{ auth('customer')->user()->email }}" name="email" readonly >
             @error('email')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+       </div>
+       <div class="col-md-4">
+        <div class="form-group">
+            <label for="">Date of Birth : </label>
+            <input type="text" class="form-control" value="{{ auth('customer')->user()->date_of_birth ?  auth('customer')->user()->date_of_birth->format('Y-m-d') : '' }}" readonly> <br>
+            <input type="date" class="form-control" value="" name="date_of_birth" >
+            @error('date_of_birth')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>

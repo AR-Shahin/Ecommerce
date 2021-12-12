@@ -35,16 +35,19 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->date_of_birth;
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
             'password' => ['required', 'confirmed'],
+            'date_of_birth' => ['required', 'before_or_equal:today'],
         ]);
 
         $user = Customer::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'date_of_birth' => $request->date_of_birth
         ]);
 
         //  event(new Registered($user));
