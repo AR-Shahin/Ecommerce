@@ -154,6 +154,14 @@
               <p>Orders</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link @if ($navItem === 'message')
+            active
+            @endif" href="{{ route('admin.message.index') }}">
+              <i class="nav-icon fa fa-envelope text-warning"></i>
+              <p>Message</p>
+            </a>
+          </li>
           @auth('admin')
           <li class="nav-item">
             <form action="{{ route('admin.logout') }}" method="POST">

@@ -11,8 +11,10 @@ use App\Http\Controllers\Admin\{
     CouponController,
     DashboardController,
     SubCategoryController,
+    MessageController,
     OrderController
 };
+
 
 // Route::get('test', fn () => view('Backend.Category.test'));
 
@@ -62,6 +64,9 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
     Route::get('orders/pending', [OrderController::class, 'pendingOrder'])->name('orders.pending');
     Route::get('orders/ongoing', [OrderController::class, 'onGoingOrder'])->name('orders.onGoing');
     Route::get('orders/received', [OrderController::class, 'receivedOrder'])->name('orders.received');
+
+    # Message
+    Route::get('message', [MessageController::class, 'index'])->name('message.index');
 });
 
 
