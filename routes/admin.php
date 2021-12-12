@@ -67,6 +67,8 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 
     # Message
     Route::get('message', [MessageController::class, 'index'])->name('message.index');
+    Route::get('message/{message}', [MessageController::class, 'singleCustomerMessages'])->name('message');
+    Route::post('reply/{message}', [MessageController::class, 'storeReply'])->name('reply');
 });
 
 
