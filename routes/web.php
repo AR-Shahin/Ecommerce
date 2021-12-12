@@ -17,7 +17,8 @@ use App\Http\Controllers\Frontend\{
     SettingsController,
     ShippingController,
     ShopController,
-    WishlistController
+    WishlistController,
+    MessageController
 };
 
 use Illuminate\Support\Facades\Route;
@@ -100,6 +101,9 @@ Route::middleware('auth:customer')->group(function () {
         $navItem = 'dashboard';
         return view('Frontend.dashboard', compact('navItem'));
     })->name('dashboard');
+
+    # Message
+    Route::get('message', [MessageController::class, 'index'])->name('message');
 });
 
 # Contact
