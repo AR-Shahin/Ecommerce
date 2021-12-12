@@ -2,31 +2,47 @@
 @section('title','Message')
 
 @section('frontend_master_content')
+
+<div class="message_wrapper" style="height: 70vh;overflow-y:scroll ">
+@if ($message->message)
+<div class="contai" style="background: teal">
+    <img src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744034?k=20&m=1016744034&s=612x612&w=0&h=kjCAwH5GOC3n3YRTHBaLDsLIuF8P3kkAJc9RvfiYWBY=" alt="Avatar" style="width:100%;">
+    <p style="color: #fff">{{ $message->message->message}}</p>
+    <span class="time-right">{{ $message->message->created_at->format('D-M-Y (h:i:s a)') }}</span>
+</div>
+@forelse ($message->message->replies as $reply)
+@if ($reply->mode == 'customer')
 <div class="contai">
-        <img src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744034?k=20&m=1016744034&s=612x612&w=0&h=kjCAwH5GOC3n3YRTHBaLDsLIuF8P3kkAJc9RvfiYWBY=" alt="Avatar" style="width:100%;">
-        <p>Hello. How are you today?</p>
-        <span class="time-right">11:00</span>
+    <img src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744034?k=20&m=1016744034&s=612x612&w=0&h=kjCAwH5GOC3n3YRTHBaLDsLIuF8P3kkAJc9RvfiYWBY=" alt="Avatar" style="width:100%;">
+    <p>{{ $reply->reply }}</p>
+    <span class="time-right">{{ $reply->created_at->format('D-M-Y (h:i:s a)') }}</span>
 </div>
-
+@else
 <div class="contai darker">
-        <img src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744034?k=20&m=1016744034&s=612x612&w=0&h=kjCAwH5GOC3n3YRTHBaLDsLIuF8P3kkAJc9RvfiYWBY=" alt="Avatar" class="right" style="width:100%;">
-        <p>Hey! I'm fine. Thanks for asking!</p>
-        <span class="time-left">11:01</span>
+    <img src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744034?k=20&m=1016744034&s=612x612&w=0&h=kjCAwH5GOC3n3YRTHBaLDsLIuF8P3kkAJc9RvfiYWBY=" alt="Avatar" class="right" style="width:100%;">
+    <p>{{ $reply->reply }}</p>
+    <span class="time-right">{{ $reply->created_at->format('D-M-Y (h:i:s a)') }}</span>
 </div>
+@endif
 
-        <div class="contai">
-        <img src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744034?k=20&m=1016744034&s=612x612&w=0&h=kjCAwH5GOC3n3YRTHBaLDsLIuF8P3kkAJc9RvfiYWBY=" alt="Avatar" style="width:100%;">
-        <p>Sweet! So, what do you wanna do today?</p>
-        <span class="time-right">11:02</span>
-        </div>
+@empty
 
-<div class="contai darker">
-        <img src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744034?k=20&m=1016744034&s=612x612&w=0&h=kjCAwH5GOC3n3YRTHBaLDsLIuF8P3kkAJc9RvfiYWBY=" alt="Avatar" class="right" style="width:100%;">
-        <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-        <span class="time-left">11:05</span>
-</div>
+@endforelse
 <div class="mt-3">
-    <form action="">
+    <form action="{{ route('reply',$message->message->id) }}" method="POST">
+        @csrf
+        <textarea name="reply" id="" cols="30" rows="5" class="form-control">
+
+        </textarea>
+
+        <button class="btn btn-success btn-sm mt-3"> Reply </button>
+    </form>
+</div>
+@else
+<p>Do you have any Query? Feel free to contact with us <i class="fa fa-smile text-success"></i></p>
+<div class="mt-3">
+    <form action="{{ route('message') }}" method="POST">
+        @csrf
         <textarea name="message" id="" cols="30" rows="5" class="form-control">
 
         </textarea>
@@ -34,6 +50,12 @@
         <button class="btn btn-success btn-sm mt-3">Send </button>
     </form>
 </div>
+
+</div>
+@endif
+
+
+
 @stop
 
 @push('css')

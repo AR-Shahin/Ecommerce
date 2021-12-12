@@ -104,6 +104,8 @@ Route::middleware('auth:customer')->group(function () {
 
     # Message
     Route::get('message', [MessageController::class, 'index'])->name('message');
+    Route::post('message', [MessageController::class, 'store'])->name('message');
+    Route::post('reply/{message}', [MessageController::class, 'storeReply'])->name('reply');
 });
 
 # Contact
