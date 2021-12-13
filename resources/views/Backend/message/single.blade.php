@@ -293,7 +293,7 @@
                                 <img src="https://bootdey.com/img/Content/avatar/avatar{{ $message->id }}.png" alt="avatar">
                             </a>
                             <div class="chat-about">
-                                <h6 class="m-b-0">{{ $message->customer->name }}</h6>
+                                <h6 class="m-b-0"><a href="{{ route('admin.customer',$message->customer->id) }}">{{ $message->customer->name }}</a></h6>
                                 <small>Last seen: 2 hours ago</small>
                             </div>
                         </div>

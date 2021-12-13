@@ -64,4 +64,9 @@ class Customer extends Authenticatable
     {
         return $this->hasOne(Message::class, 'customer_id');
     }
+
+    public function getDateOfBirthAttribute($value)
+    {
+        return $value;
+    }
 }
