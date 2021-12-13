@@ -69,4 +69,9 @@ class Customer extends Authenticatable
     {
         return $value;
     }
+
+    function scopeBirthday($query)
+    {
+        return $query->where('date_of_birth', today());
+    }
 }

@@ -15,7 +15,10 @@ use App\Http\Controllers\Admin\{
     MessageController,
     OrderController
 };
-
+use App\Mail\CustomerBirthdayWishMail;
+use App\Mail\CustomerOrderMail;
+use App\Models\Customer;
+use Illuminate\Support\Facades\Mail;
 
 // Route::get('test', fn () => view('Backend.Category.test'));
 
@@ -81,3 +84,14 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 //     $pdf = PDF::loadView('pdf.order_details');
 //     return $pdf->stream('document.pdf');
 // });
+
+Route::get('test', function () {
+    $customers =  Customer::whereMonth('date_of_birth', today()->format('m'))
+        ->whereDay('date_of_birth', today()->format('d'))
+        ->get(['name', 'email', 'id']);
+
+    foreach ($customers as $customer) {
+        Mail::to($customer->email)->send(new CustomerBirthdayWishMail($customer));
+    }
+    return 1;
+});
