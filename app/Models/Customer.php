@@ -74,4 +74,8 @@ class Customer extends Authenticatable
     {
         return $query->where('date_of_birth', today());
     }
+    function scopeHasPhoneNumber($query)
+    {
+        return $query->whereNotNull('phone');
+    }
 }

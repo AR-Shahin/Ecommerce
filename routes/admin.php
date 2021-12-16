@@ -13,8 +13,11 @@ use App\Http\Controllers\Admin\{
     DashboardController,
     SubCategoryController,
     MessageController,
-    OrderController
+    OrderController,
+    SMSController
 };
+
+use Vonage\SMS\Client;
 use App\Mail\CustomerBirthdayWishMail;
 use App\Mail\CustomerOrderMail;
 use App\Models\Customer;
@@ -86,12 +89,15 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 // });
 
 Route::get('test', function () {
-    $customers =  Customer::whereMonth('date_of_birth', today()->format('m'))
-        ->whereDay('date_of_birth', today()->format('d'))
-        ->get(['name', 'email', 'id']);
 
-    foreach ($customers as $customer) {
-        Mail::to($customer->email)->send(new CustomerBirthdayWishMail($customer));
-    }
-    return 1;
+    // $customers =  Customer::whereMonth('date_of_birth', today()->format('m'))
+    //     ->whereDay('date_of_birth', today()->format('d'))
+    //     ->get(['name', 'email', 'id']);
+
+    // foreach ($customers as $customer) {
+    //     Mail::to($customer->email)->send(new CustomerBirthdayWishMail($customer));
+    // }
+    // return 1;
 });
+
+// Route::get('sms', [SMSController::class, 'index']);
