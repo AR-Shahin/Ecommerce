@@ -45,9 +45,10 @@ class SliderController extends Controller
     {
         return $slider;
     }
-    public function update(SliderRequest $request, Slider $slider)
+    public function update(Request $request, Slider $slider)
     {
-        info($request->file('image'));
+        info($request->all());
+
         if ($request->has('file')) {
             dd($request->image);
             $olgImage = $slider->image;

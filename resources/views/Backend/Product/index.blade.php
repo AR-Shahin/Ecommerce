@@ -53,7 +53,7 @@
 
 
                             <a href="{{ route('admin.product.show',$product->slug) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
-                            <a href="{{ route('admin.product.edit', $product->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                            {{-- <a href="{{ route('admin.product.edit', $product->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a> --}}
 
                            <form action="{{ route('admin.product.destroy', $product->slug) }}" class="d-inline" method="post">
                             @csrf

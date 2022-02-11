@@ -239,7 +239,7 @@ $('body').on('submit','#editForm',function(e){
     //console.log(id)
     let titleEditError = $('#titleEditError');
     titleEditError.text('')
-    let url = `${base_url_admin}/slider/${id}`;
+    let url = `${base_url_admin}/slider/slider-update/${id}`;
     let editImage = $('#editImage');
     let edit_title = $('#edit_title')
     let edit_content = $('#edit_content')
@@ -247,7 +247,6 @@ $('body').on('submit','#editForm',function(e){
         const data = new FormData();
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
         data.append('image',document.getElementById('editImage').files[0]);
-        log(document.getElementById('editImage').files[0])
         sendUpdateAjaxRequest(url,{id:id,content:edit_content.val(),title:edit_title.val(),image:data}).then(res => {
             getAllSlider();
             setSuccessMessage('Data Update Successfully!')

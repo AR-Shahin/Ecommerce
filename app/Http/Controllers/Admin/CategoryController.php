@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        info($request->all());
+        // info($request->all());
         $category =  Category::create([
             'name' => $request->name,
             'slug' => $request->name,

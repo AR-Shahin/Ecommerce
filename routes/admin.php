@@ -50,6 +50,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth:admin'])->group(function
 
 
     Route::resource('slider', SliderController::class)->except(['create', 'edit']);
+    Route::put('slider-update/{id}', [SliderController::class, 'update'])->name('custom');
     Route::get('fetch-slider', [SliderController::class, 'fetchSlider'])->name('fetch-slider');
     Route::put('slider-inactive/{slider}', [SliderController::class, 'inActiveSlider'])->name('slider-inactive');
     Route::put('slider-active/{slider}', [SliderController::class, 'activeSlider'])->name('slider-active');
