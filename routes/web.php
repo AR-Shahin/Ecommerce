@@ -20,7 +20,7 @@ use App\Http\Controllers\Frontend\{
     WishlistController,
     MessageController
 };
-
+use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -121,3 +121,29 @@ Route::get('test', function () {
 });
 require __DIR__ . '/admin_auth.php';
 require __DIR__ . '/admin.php';
+
+
+
+Route::get('nexmo', function () {
+    $customers =  Customer::hasPhoneNumber()->get(['name', 'phone']);
+    foreach ($customers as $customer) {
+        $client = $customer->name;
+        $phone_number = strlen($customer->phone) == 11 ? "+88{$customer->phone}" : $customer->phone;
+        $url = config('app.url');
+        $app_name = config('app.name');
+        $text = "Happy birthday to a very cherished client ({$client}). May you live a trouble-free and perfectly happy life. Visit our site [{$url}]";
+        $basic  = new \Vonage\Client\Credentials\Basic("1763bb57", "hrqFFzag8vDw6CXI");
+        $client = new \Vonage\Client($basic);
+        $response = $client->sms()->send(
+            new \Vonage\SMS\Message\SMS($phone_number, $app_name, $text)
+        );
+
+        $message = $response->current();
+
+        if ($message->getStatus() == 0) {
+            echo "The message was sent successfully\n";
+        } else {
+            echo "The message failed with status: " . $message->getStatus() . "\n";
+        }
+    }
+});
