@@ -2,9 +2,9 @@
 @section('title','Contact')
 
 @section('app_content')
-{{-- @php
-    dd(8);
-@endphp --}}
+@php
+
+@endphp
  <!-- Breadcrumb Start -->
  <div class="container-fluid">
     <div class="row px-xl-5">
@@ -75,9 +75,9 @@
                 frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
             </div>
             <div class="bg-light p-30 mb-3">
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>w</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>w</p>
-                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>w</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>{{ $website ? $website->address : "" }}</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>{{ $website ? $website->email : "" }}</p>
+                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>{{ $website ? $website->phone : "" }}</p>
             </div>
         </div>
     </div>
